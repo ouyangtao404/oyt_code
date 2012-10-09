@@ -1,12 +1,43 @@
 /**
- * intervein elements dynamically
- * @author baohe.oyt@taobao.com
- */
+* Waterfall.js | cubee 弹出框控件
+* @author baohe.oyt@taobao.com
+* @class Y.Box
+* @param { object } 配置项
+* @return { object } 生成一个Waterfall实例
+*
+* S.Waterfall：
+* 说明：瀑布流组件，通过new S.Waterfall 或者 new Waterfall来创建一个瀑布流,对于数据的限制，
+    * 只需要给实例的success方法传入新创建的dom节点集合便可，success函数也可以由load函数的第一个参数来获取
+    * 执行实例的end函数，才能停止瀑布流的继续渲染（机制是清除对滚动条到底部的相关监听函数）
+* 使用： new Waterfall(container, options);
+* 配置：
+* brooks:{object} 指定几个容器，没有的话，需要组件会在容器里自动创建
+* basicHeight: {array} 各个容器的基本高度，建议不用填，会自动计算基本高度，使瀑布流底部优先插入视觉上考上的一列
+* brookName:{string} 瀑布流每列的class，默认为'J_plaza_brook'
+* colCount:{number} 瀑布流列数,若已经有制定的列容器则不用填
+* colWidth:{number} 每列宽度,若已经有制定的列容器则不用填
+* imageClass:{string} 瀑布流item的图片的class，用于有大图的item操作img元素
+* load:{function} 渲染函数，有3个参数分别为：渲染代码库的function，结束瀑布流渲染的function，瀑布流组件本身
+* insertBefore：{function} 每个item插入之前触发，this为该item，唯一的参数是改item的大图信息，如下 
+    * {
+    * isHasImg: false/true,有无图片，以及尺寸，无图片尺寸为0
+    * height: 100,
+    * width : 200
+    * };
+* insertAfter:{function} 每个item插入之后触发，this和参数同insetAfter
+* itemComplete:{function} 每个item显示完整（渐隐显示）后触发，this为该item
+* renderComplete:{function} 所有信息渲染完成（以实例的属性isLastTime为标记）后触发
+* 
+* S.Waterfall的实例的方法：
+* success:将数据和结构组合好的新建dom节点集合作为第一个参数传入，内容便可在瀑布流中展示
+*   当是最后一次渲染的时候，传入一个布尔值true，作为标记，关系到renderComplete的触发
+* end:终止瀑布流渲染
+*/
 KISSY.add('widgets/Waterfall/Waterfall', function(S) {
     var D = S.DOM,
-    	E = S.Event,
-    	UA = S.UA,
-    	timer,
+        E = S.Event,
+        UA = S.UA,
+        timer,
         BROOK_NAME = 'J_plaza_brook';
     
     function Waterfall(container, config) {
@@ -109,14 +140,14 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 width = img.width;
                 height = img.height;
                 // 加载错误后的事件
-                img.onerror = function () {
+                img.onerror = function() {
                     error && error.call(img);
                     onready.end = true;
                     img = img.onload = img.onerror = null;
                 };
             
                 // 图片尺寸就绪
-                onready = function () {
+                onready = function() {
                   newWidth = img.width;
                   newHeight = img.height;
                   if (newWidth !== width || newHeight !== height ||
@@ -130,7 +161,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 onready();
             
                 // 完全加载完毕的事件
-                img.onload = function () {
+                img.onload = function() {
                     // onload在定时器时间差范围内可能比onready快
                     // 这里进行检查并保证onready优先执行
                     !onready.end && onready();
@@ -149,7 +180,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         },
 
         //渲染几列结构
-        _bindStructure: function(){
+        _bindStructure: function() {
             var self = this,
                 structure = '',
                 conWidth = D.width(self.container),
@@ -168,11 +199,11 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             self.brooks = D.query('.'+self.brookName, self.container);
         },
         //判断是否滚动条达到底部临界点
-        isGetBottom: function(){
+        isGetBottom: function() {
             /********************   
             * 取窗口滚动条高度    
             ******************/    
-            function getScrollTop(){     
+            function getScrollTop() {     
                 var scrollTop=0;     
                 if(document.documentElement&&document.documentElement.scrollTop){     
                     scrollTop=document.documentElement.scrollTop;     
@@ -184,7 +215,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             /********************   
             * 取窗口可视范围的高度    
             *******************/    
-            function getClientHeight(){     
+            function getClientHeight() {     
                 var clientHeight=0;     
                 if(document.body.clientHeight&&document.documentElement.clientHeight){     
                     var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;             
@@ -197,10 +228,10 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             /********************   
             * 取文档内容实际高度    
             *******************/    
-            function getScrollHeight(){ 
+            function getScrollHeight() { 
                 return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);     
             }
-            if(getScrollTop()+getClientHeight() >= getScrollHeight() - 400){
+            if(getScrollTop()+getClientHeight() >= getScrollHeight() - 400) {
                 return true;
             }     
             return false;
@@ -215,12 +246,12 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 brooks = self.brooks,
                 len = brooks.length;
                 
-            if(bh.length === 0){
+            if (bh.length === 0) {
                 for(var j=0; j < len; j++){
                     bh[j] = 0;
                 }
             }
-            for(var i = 0; i < len; i++){
+            for(var i = 0; i < len; i++) {
                 if(!sBrook){
                     sBrook = brooks[i];
                     sBrook.basicHeight = bh[i];
@@ -243,93 +274,100 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 sumNum = items.length,
                 addNum = 0;
             
-            if(items.length === 0)return;
+            
+            if(items.length === 0) {
+                return;
+            }
+            /*
+            if (self.isLastTime) {//执行过end函数则这里为true
+                console.log('renderComplete haha');
+                self.renderComplete.apply(self);
+                 return;
+            }*/
+            
             showItems(items);
-            function showItems(items){
+            function showItems(items) {
                 var num = 0,
                     maxNum = items.length;
                     
                 showItem(items, num);
-                function showItem(items, num){
+                function showItem(items, num) {
                     
-                    function delay(items, num){
-                        return function(){
-                        	var	image = D.get('.' + self.imageClass, items[num]);
-                        	D.css(items[num], 'opacity', '0');	
-                    		if(image){//有图片
-                    			self.imgReady(items[num], D.attr(image, 'src'), function() {
-                            		renderStart({
-                            			img: this,
-                            			item: false
-                            		}, num, maxNum);
-                            	});
-                            	return;
-                    		}
-                    		//无图片
-                        	renderStart({
-                        		img: false,
-                        		item: items[num]
-                        	}, num, maxNum);
+                    function delay(items, num) {
+                        return function() {
+                            var image = D.get('.' + self.imageClass, items[num]);
+                            D.css(items[num], 'opacity', '0');  
+                            if (image) {//有图片
+                                self.imgReady(items[num], D.attr(image, 'src'), function() {
+                                    renderStart({
+                                        img: this,
+                                        item: false
+                                    }, num, maxNum);
+                                });
+                                return;
+                            }
+                            //无图片
+                            renderStart({
+                                img: false,
+                                item: items[num]
+                            }, num, maxNum);
                         }
                     }
                     timer = setTimeout(delay(items, num));
                 }
                 //obj是那个用于计算图片尺寸生成的img实例
-            	function renderStart(obj, num) {
-		        	var con = self.getShortBrook();
-		        	if(obj.img) {
-		        		var img = obj.img,
-		        			item = img.relayDom,
-		        			imgData = {
-		        				isHasImg: true,
-			        			height: img.height,
-			        			width : img.width
-		        			};
-		        	} else if(obj.item) {
-		        		var item = obj.item,
-		        			imgData = {
-		        				isHasImg: false,
-			        			height: 0,
-			        			width : 0
-		        			};
-		        	} else {
-		        		throw new Error('renderStart error!');
-		        	}
-		        	//插入前回调
-		        	if(self.insertBefore) self.insertBefore.call(item, imgData);
-		            //插入后回调
-		            D.append(items[num], con);
-		            if(self.insertAfter) self.insertAfter.call(item, imgData);
-		            
-		            new S.Anim(items[num] , {'opacity' : '1'} , 2 , 'easeOut', function() {
-		            	if(self.itemComplete) self.itemComplete.apply(item, imgData);
-		            	addNum++;
-		            	if(isLastTime && self.renderComplete && addNum === sumNum){
-		            	    self.renderComplete.apply(self);
-		            	}
-		            }).run();
-		            num++;
-		            if(num < maxNum){
-		                showItem(items, num);
-		                //重复插入报错
-		                if(items[num-1] === items[num]){
-		                	alert('error');
-		            	}
-		            }
-		            
-		    	}
+                function renderStart(obj, num) {
+                    var con = self.getShortBrook();
+                    if(obj.img) {
+                        var img = obj.img,
+                            item = img.relayDom,
+                            imgData = {
+                                isHasImg: true,
+                                height: img.height,
+                                width : img.width
+                            };
+                    } else if (obj.item) {
+                        var item = obj.item,
+                            imgData = {
+                                isHasImg: false,
+                                height: 0,
+                                width : 0
+                            };
+                    } else {
+                        throw new Error('renderStart error!');
+                    }
+                    //插入前回调
+                    if(self.insertBefore) self.insertBefore.call(item, imgData);
+                    //插入后回调
+                    D.append(items[num], con);
+                    if(self.insertAfter) self.insertAfter.call(item, imgData);
+                    new S.Anim(items[num] , {'opacity' : '1'} , 2 , 'easeOut', function() {
+                        if (self.itemComplete) self.itemComplete.apply(item, imgData);
+                        if (isLastTime && self.renderComplete) {
+                            addNum++;
+                        }
+                        if (isLastTime && self.renderComplete && addNum === sumNum) {
+                            self.renderComplete.apply(self);
+                        }
+                    }).run();
+                    num++;
+                    if (num < maxNum) {
+                        showItem(items, num);
+                        //重复插入报错
+                        if(items[num-1] === items[num]){
+                            alert('error');
+                        }
+                    }
+                    
+                }
             }
             
         },
         //停止异步请求
-        end: function(){
+        end: function() {
             var self = this;
-            
             self.isEnd = true;
-            //console.log('end');
             E.remove(window, 'scroll', self.scrollFn);
-            //结束后清理延迟函数，待优化
-            //clearTimeout(timer);
         },
         /**
          * end之后重新开始渲染，如翻页效果
@@ -355,10 +393,10 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         },
         */
         //绑定事件
-        _bindEvent: function(){
+        _bindEvent: function() {
             var self = this;
-            self.scrollFn = function(){
-                if(!self.isGetBottom())return;//滚动条未达到页尾则返回
+            self.scrollFn = function() {
+                if (!self.isGetBottom()) return;//滚动条未达到页尾则返回
                 self.load(self.success, self.end, self);
             }
             E.on(window, 'scroll', self.scrollFn);

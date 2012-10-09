@@ -149,29 +149,29 @@ KISSY.use('widgets/Waterfall/Waterfall,template', function(S, Waterfall, Templat
              * context 瀑布流组件的上下文
              */
             load: function(requestSuccess, end, context) {
-            	
+            	itemsnull = 0;
                 var self = this,
                     leftItems = data.items,
                     len = 10,//一次触发插入的插入个数
                     items = [],
                     currentItem,
                     isLastTime2 = false;//做一个标记，判断所有信息是否渲染完成
-				
+                
                 for(var i=0; i<len; i++) {
-                    if(leftItems.length <= len){//剩余的长度已经在一次渲染的数量内了
-                    	context.isLastTime = true;//标记最后一次渲染，用于需要瀑布流渲染完成后执行回调
-                        isLastTime2 = true;
+                	if(leftItems.length > 0) {
+	                    var item = S.Template(waterfall_tpl).render(leftItems[0]),
+	                        newItemDom = D.create(item);
+	                    items.push(newItemDom);
+	                    leftItems.shift();
                     }
-                    var item = S.Template(waterfall_tpl).render(leftItems[0]),
-                        newItemDom = D.create(item);
-                    items.push(newItemDom);
-                    leftItems.shift();
+                    if(leftItems.length == 0){//没有更多的信息渲染了
+                        end.apply(context);//终止瀑布流渲染
+                        isLastTime2 = true;
+                        break;
+                    }
                 }
                 //最后一次渲染，给最后一个参数传一个true，才能触发瀑布流渲染完成的回调
                 requestSuccess.call(context, items, isLastTime2);
-                if(isLastTime2) {
-                    end.apply(context);//终止瀑布流渲染
-                }
             },
             //单个item插入之前
             //此时图片已经算好高度了
