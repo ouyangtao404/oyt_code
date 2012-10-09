@@ -1,7 +1,7 @@
 /**
 * Waterfall.js | 瀑布流组件
 * @author baohe.oyt@taobao.com
-* @class Y.Box
+* @class Waterfall
 * @param { object } 配置项
 * @return { object } 生成一个Waterfall实例
 *
