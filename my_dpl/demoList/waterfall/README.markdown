@@ -92,10 +92,7 @@
              	alert('render complete!');
             }
         });
-}
-	
 
-	
 
 Waterfall实例对象的方法
 	
@@ -122,7 +119,7 @@ Waterfall实例对象的方法
 -	colWidth:{number} 每列宽度,若已经有制定的列容器则不用填
 -	imageClass:{string} 瀑布流item的图片的class，用于有大图的item操作img元素
 -	load:{function} 渲染函数，有3个参数分别为：渲染代码库的function，结束瀑布流渲染的function，瀑布流组件本身
--	insertBefore：{function} 每个item插入之前触发，this为该item，唯一的参数是改item的大图信息，如下
+-	insertBefore：{function} 每个item插入之前触发，this为该item，唯一的参数是该item的大图信息，如下
 -		{
 -			isHasImg: false/true,有无图片，以及尺寸，无图片尺寸为0
 -			height: 100,

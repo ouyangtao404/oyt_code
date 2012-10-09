@@ -5,5 +5,5 @@
 # Info
 
 
--	ÏêÇé¼ûmy_dpl/demoList/waterfall
+-	find at my_dpl/demoList/waterfall
 
