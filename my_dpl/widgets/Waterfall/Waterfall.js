@@ -2,7 +2,7 @@
  * intervein elements dynamically
  * @author baohe.oyt@taobao.com
  */
-KISSY.add("widgets/Waterfall/Waterfall", function(S) {
+KISSY.add('widgets/Waterfall/Waterfall', function(S) {
     var D = S.DOM,
     	E = S.Event,
     	UA = S.UA,
@@ -265,7 +265,6 @@ KISSY.add("widgets/Waterfall/Waterfall", function(S) {
                             	});
                             	return;
                     		}
-                    		if(!items[num])debugger;
                     		//ÎÞÍ¼Æ¬
                         	renderStart({
                         		img: false,
