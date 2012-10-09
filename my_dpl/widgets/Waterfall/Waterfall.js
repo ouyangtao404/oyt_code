@@ -1,5 +1,5 @@
 /**
-* Waterfall.js | cubee 弹出框控件
+* Waterfall.js | 瀑布流组件
 * @author baohe.oyt@taobao.com
 * @class Y.Box
 * @param { object } 配置项
