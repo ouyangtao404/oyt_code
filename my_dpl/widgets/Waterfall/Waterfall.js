@@ -57,10 +57,6 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             var self = this;
             self.isEnd = false;
             self._bindParam(config);
-            
-            if(!config.brooks){
-                self._bindStructure();
-            }
             self._bindEvent();
             //初始化一个工具给self.imgReady;
             self.imgReady = self._checkImgSizeInit();
@@ -76,26 +72,26 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             self.insertAfter = (typeof o.insertAfter == 'undefined' || o.insertAfter == null || typeof o.insertAfter != 'function') ? false : o.insertAfter;
             self.itemComplete = (typeof o.itemComplete == 'undefined' || o.itemComplete == null || typeof o.itemComplete != 'function') ? false : o.itemComplete;
             self.renderComplete = (typeof o.renderComplete == 'undefined' || o.renderComplete == null || typeof o.renderComplete != 'function') ? false : o.renderComplete;
-            self.brooks = brooks = o.brooks;
+            self.brookName = (typeof o.brookName == 'undefined' || o.brookName == null || typeof o.brookName != 'string')? BROOK_NAME : o.brookName;
             
+            
+            self.brooks = brooks = o.brooks;
+            if(!o.brooks) {
+                 //如果已经预设了结构，则不需要其他参数
+                self.colCount = (typeof o.colCount == 'undefined' || o.colCount == null) ? false : parseInt(o.colCount);
+                self.colWidth = (typeof o.colWidth == 'undefined' || o.colWidth == null) ? false : parseInt(o.colWidth);
+                if(!(self.load && self.colCount && self.colWidth)){
+                    alert('param error!');
+                    return; 
+                }
+                brooks = self.brooks = self._bindStructure();
+            }
             var len = brooks.length;
             for(var i=0; i<len; i++) {
-                basicHeight.push(D.offset(brooks[i]).top);
+                basicHeight[basicHeight.length] = D.offset(brooks[i]).top;
             }
             self.basicHeight = (typeof o.basicHeight == 'undefined' || o.basicHeight == null || typeof o.basicHeight != 'object')? basicHeight : o.basicHeight;
             self.imageClass = (typeof o.imageClass == 'undefined' || o.imageClass == null || typeof o.imageClass != 'string')? false : o.imageClass;
-            self.brookName = (typeof o.brookName == 'undefined' || o.brookName == null || typeof o.brookName != 'string')? BROOK_NAME : o.brookName;
-            //如果已经预设了结构，则不需要其他参数
-            if(o.brooks){
-                return;
-            }
-            
-            self.colCount = (typeof o.colCount == 'undefined' || o.colCount == null) ? false : parseInt(o.colCount);
-            self.colWidth = (typeof o.colWidth == 'undefined' || o.colWidth == null) ? false : parseInt(o.colWidth);
-            if(!(self.load && self.colCount && self.colWidth)){
-                alert('param error!');
-                return; 
-            }
         },
         /**
          * 初始化一个函数，用于计算图片尺寸
@@ -180,7 +176,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         },
 
         //渲染几列结构
-        _bindStructure: function() {
+        _bindStructure: function(){
             var self = this,
                 structure = '',
                 conWidth = D.width(self.container),
@@ -196,7 +192,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 }
             }
             D.append(D.create(structure), self.container);
-            self.brooks = D.query('.'+self.brookName, self.container);
+            return D.query('.'+self.brookName, self.container);
         },
         //判断是否滚动条达到底部临界点
         isGetBottom: function() {
