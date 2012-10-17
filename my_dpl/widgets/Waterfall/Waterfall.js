@@ -46,12 +46,15 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             self.container = D.get(container);
         }
         if(!container && config.brooks) {
-            S.log('请配置正确的id.');
+            console.info('请配置正确的id.');
             return;
         }
         self._init(config || {});
     }
-    
+    //继承base可以设置自定义事件
+    S.extend(Waterfall, S.Base);
+    //S.extend(Waterfall, S.EventTarget);
+    //S.augment(Waterfall, S.EventTarget);
     S.augment(Waterfall, {
         _init: function(config) {
             var self = this;
@@ -64,34 +67,48 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         //配置参数
         _bindParam: function(o) {
             var self = this,
-                brooks,
-                basicHeight = [];
+                brooks;
+
+            //必须有的参数，没有配置到需要报错
+            if(!o.template || //template不存在
+               (!o.brooks && (!o.container || !o.colCount || !o.colWidth))//指定的溪流  且  构建溪流的3要素（容器，溪流宽度，溪流列数）都没有
+            ) {
+                console.info('brooks不存在或container/colCount/colWidth不存在！');
+                return;
+            }
             
-            self.load = (typeof o.load == 'undefined' || o.load == null || typeof o.load != 'function') ? false : o.load;
-            self.insertBefore = (typeof o.insertBefore == 'undefined' || o.insertBefore == null || typeof o.insertBefore != 'function') ? false : o.insertBefore;
-            self.insertAfter = (typeof o.insertAfter == 'undefined' || o.insertAfter == null || typeof o.insertAfter != 'function') ? false : o.insertAfter;
-            self.itemComplete = (typeof o.itemComplete == 'undefined' || o.itemComplete == null || typeof o.itemComplete != 'function') ? false : o.itemComplete;
-            self.renderComplete = (typeof o.renderComplete == 'undefined' || o.renderComplete == null || typeof o.renderComplete != 'function') ? false : o.renderComplete;
-            self.brookName = (typeof o.brookName == 'undefined' || o.brookName == null || typeof o.brookName != 'string')? BROOK_NAME : o.brookName;
-            
-            
-            self.brooks = brooks = o.brooks;
             if(!o.brooks) {
-                 //如果已经预设了结构，则不需要其他参数
-                self.colCount = (typeof o.colCount == 'undefined' || o.colCount == null) ? false : parseInt(o.colCount);
-                self.colWidth = (typeof o.colWidth == 'undefined' || o.colWidth == null) ? false : parseInt(o.colWidth);
-                if(!(self.load && self.colCount && self.colWidth)){
-                    alert('param error!');
-                    return; 
+                self.brooks = o.brooks = self._bindStructure();
+            }
+            
+            function setParam(def, key) {
+                var v = o[key];
+                self[key] = (v === undefined || v === null)? def : v;
+            }
+            
+            S.each({
+                brookName: BROOK_NAME,
+                brooks: false,
+                colCount: false,
+                colWidth: false,
+                imageClass: false,
+                template: false,
+                index: 0,//触发渲染次数
+                callback: false
+            }, setParam);
+            
+            // 获取系列的基本高度
+            function getBasicHeight() {
+                var brooks = self.brooks,
+                    len = brooks.length,
+                    heightList = [];
+                    
+                for(var i=0; i<len; i++) {
+                    heightList[heightList.length] = D.offset(brooks[i]).top;
                 }
-                brooks = self.brooks = self._bindStructure();
+                return heightList;
             }
-            var len = brooks.length;
-            for(var i=0; i<len; i++) {
-                basicHeight[basicHeight.length] = D.offset(brooks[i]).top;
-            }
-            self.basicHeight = (typeof o.basicHeight == 'undefined' || o.basicHeight == null || typeof o.basicHeight != 'object')? basicHeight : o.basicHeight;
-            self.imageClass = (typeof o.imageClass == 'undefined' || o.imageClass == null || typeof o.imageClass != 'string')? false : o.imageClass;
+            self.basicHeight = getBasicHeight();
         },
         /**
          * 初始化一个函数，用于计算图片尺寸
@@ -102,20 +119,20 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 list = [], 
                 intervalId = null,
 
-            // 用来执行队列
-            tick = function () {
-                var i = 0;
-                for (; i < list.length; i++) {
-                  list[i].end ? list.splice(i--, 1) : list[i]();
+                // 用来执行队列
+                tick = function () {
+                    var i = 0;
+                    for (; i < list.length; i++) {
+                      list[i].end ? list.splice(i--, 1) : list[i]();
+                    }
+                    !list.length && stop();
+                },
+            
+                // 停止所有定时器队列
+                stop = function () {
+                    clearInterval(intervalId);
+                    intervalId = null;
                 };
-                !list.length && stop();
-            },
-        
-            // 停止所有定时器队列
-            stop = function () {
-                clearInterval(intervalId);
-                intervalId = null;
-            };
             
             return function (dom, url, ready, load, error) {
                 var onready, 
@@ -129,42 +146,42 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 img.src = url;
                 // 如果图片被缓存，则直接返回缓存数据
                 if(img.complete) {
-                  ready.call(img);
-                  load && load.call(img);
-                  return;
-                };
+                    ready.call(img);
+                    load && load.call(img);
+                    return;
+                }
                 width = img.width;
                 height = img.height;
                 // 加载错误后的事件
-                img.onerror = function() {
+                E.on(img, 'error', function() {
                     error && error.call(img);
                     onready.end = true;
                     img = img.onload = img.onerror = null;
-                };
+                });
             
                 // 图片尺寸就绪
                 onready = function() {
-                  newWidth = img.width;
-                  newHeight = img.height;
-                  if (newWidth !== width || newHeight !== height ||
-                    // 如果图片已经在其他地方加载可使用面积检测
-                    newWidth * newHeight > 1024
-                  ) {
-                    ready.call(img);
-                    onready.end = true;
-                  };
-                };
+                    newWidth = img.width;
+                    newHeight = img.height;
+                    if (newWidth !== width || newHeight !== height ||
+                        // 如果图片已经在其他地方加载可使用面积检测
+                        newWidth * newHeight > 1024
+                    ) {
+                        ready.call(img);
+                        onready.end = true;
+                    };
+                }
                 onready();
             
                 // 完全加载完毕的事件
-                img.onload = function() {
+                E.on(img, 'load', function() {
                     // onload在定时器时间差范围内可能比onready快
                     // 这里进行检查并保证onready优先执行
                     !onready.end && onready();
                     load && load.call(img);
                     // IE gif动画会循环执行onload，置空onload即可
                     img = img.onload = img.onerror = null;
-                };
+                });
             
                 // 加入队列中定期执行
                 if (!onready.end) {
@@ -259,33 +276,43 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             return sBrook;
         },
         /**
+         * 把数据和模板进行拼装
+         */
+        _createDom: function(dataList) {
+            var self = this,
+                items = [],
+                template = self.template;
+            
+            for(var i=0; i < dataList.length; i++) {
+                items[items.length] = D.create(S.Template(template).render(dataList[i]));
+            }
+            return items;
+        },
+        /**
          * /把一次请求来的多项依次渲染
          * 实现瀑布流渲染完成的回调函数的原理：
          *      1.判断isLastTime参数是否为真
          *      2.如果1满足，则在每次渲染items成员时，给addNum加1，并判断是否addNum等于sumNum，为真则执行瀑布流渲染完成回调
          * 这么实现的原因是每次渲染都是一个异步的过程，不确定哪一个item会是最后渲染完成，所以计数来判断才靠谱
          */
-        success: function(items, isLastTime) {
-            var self = this,
-                sumNum = items.length,
-                addNum = 0;
-            
-            
-            if(items.length === 0) {
+        load: function(dataList, isLastTime) {
+            var self = this;
+            if(dataList.length == 0) {
+                //传入了空的信息，认为是瀑布流结束
+                self.end();
                 return;
             }
-            /*
-            if (self.isLastTime) {//执行过end函数则这里为true
-                console.log('renderComplete haha');
-                self.renderComplete.apply(self);
-                 return;
-            }*/
+            var items = self._createDom(dataList),
+                sumNum = items.length,
+                addNum = 0;
+
+            self.index++;
             
             showItems(items);
             function showItems(items) {
                 var num = 0,
                     maxNum = items.length;
-                    
+
                 showItem(items, num);
                 function showItem(items, num) {
                     
@@ -330,20 +357,24 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                                 width : 0
                             };
                     } else {
-                        throw new Error('renderStart error!');
+                        console.error('renderStart error!');
                     }
                     //插入前回调
-                    if(self.insertBefore) self.insertBefore.call(item, imgData);
+                    if(self.callback.insertBefore) self.callback.insertBefore.call(item, imgData);
                     //插入后回调
                     D.append(items[num], con);
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
                     new S.Anim(items[num] , {'opacity' : '1'} , 2 , 'easeOut', function() {
-                        if (self.itemComplete) self.itemComplete.apply(item, imgData);
-                        if (isLastTime && self.renderComplete) {
+                        if (self.callback.itemComplete) self.callback.itemComplete.call(item, imgData);
+                        if (isLastTime) {
                             addNum++;
                         }
-                        if (isLastTime && self.renderComplete && addNum === sumNum) {
-                            self.renderComplete.apply(self);
+                        if(isLastTime) {
+                            console.log(addNum);
+                            console.log(sumNum);
+                        }
+                        if (isLastTime && addNum === sumNum) {
+                            self.fire('renderComplete');
                         }
                     }).run();
                     num++;
@@ -357,7 +388,6 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                     
                 }
             }
-            
         },
         //停止异步请求
         end: function() {
@@ -365,41 +395,22 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             self.isEnd = true;
             E.remove(window, 'scroll', self.scrollFn);
         },
-        /**
-         * end之后重新开始渲染，如翻页效果
-         */
-        /*
-        restart: function() {
-            var self = this,
-                brooks = self.brooks,
-                len = brooks.length;
-            //确定已经结束
-            if(!self.isEnd){
-                self.end();
-            }
-            
-            self.isEnd = true;
-            //重新取一下小溪流，当list模式切换之后，会有新的，重新取保险
-            self.brooks = D.query('.'+ self.brookName);
-            //清空小溪流内容
-            for(var i=0; i<len; i++) {
-                D.html(brooks[i], '');
-            }
-            self._bindEvent();
-        },
-        */
         //绑定事件
         _bindEvent: function() {
             var self = this;
             self.scrollFn = function() {
-                if (!self.isGetBottom()) return;//滚动条未达到页尾则返回
-                self.load(self.success, self.end, self);
+            if (!self.isGetBottom()) return;//滚动条未达到页尾则返回
+                self.fire('scrollToEnd');
             }
             E.on(window, 'scroll', self.scrollFn);
-            self.load(self.success, self.end, self);
+            self.callback.ready.call(self);
         }
     });
     S.Waterfall = Waterfall;
     return Waterfall;
-});
+},
+{
+    require : ['Template']
+}
+);
        
