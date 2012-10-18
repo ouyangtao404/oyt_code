@@ -285,7 +285,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
         },
         /**
          * /把一次请求来的多项依次渲染
-         * 实现瀑布流渲染完成的回调函数的原理：
+         * 实现瀑布流渲染完成的回调函数的原理： 
          * @param dataList {array} 数据集合，用于和模板拼装成代码块
          * @param isLastTime {boolean} 标志是不是最后一次渲染，需要在dataList.length不为0的时候为true，否则无法触发renderComplete事件
          */
