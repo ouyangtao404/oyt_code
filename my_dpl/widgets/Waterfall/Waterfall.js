@@ -72,14 +72,19 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
 
             //必须有的参数，没有配置到需要报错
             if(!o.template || //template不存在
-               (!o.brooks && (!self.container || !o.colCount || !o.colWidth))//指定的溪流  且  构建溪流的3要素（容器，溪流宽度，溪流列数）都没有
+               (!o.brooks && (!o.container || !o.colCount || !o.colWidth))//指定的溪流  且  构建溪流的3要素（容器，溪流宽度，溪流列数）都没有
             ) {
-                console.info('brooks有误或container/colCount/colWidth有误！');
+                console.info('brooks不存在或container/colCount/colWidth不存在！');
                 return;
+            }
+            
+            if(!o.brooks) {
+                self.brooks = o.brooks = self._bindStructure();
             }
             
             function setParam(def, key) {
                 var v = o[key];
+                
                 self[key] = (v === undefined || v === null)? def : v;
             }
             
@@ -94,9 +99,6 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 callback: false
             }, setParam);
             
-            if(!self.brooks || self.brooks.length === 0) {
-                self.brooks = o.brooks = self._bindStructure();
-            }
             // 获取系列的基本高度
             function getBasicHeight() {
                 var brooks = self.brooks,
@@ -109,7 +111,6 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 return heightList;
             }
             self.basicHeight = getBasicHeight();
-            
         },
         /**
          * 初始化一个函数，用于计算图片尺寸
@@ -199,7 +200,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 structure = '',
                 conWidth = D.width(self.container),
                 marginValue = parseInt((conWidth - self.colWidth*self.colCount)/(self.colCount - 1));
-
+            
             marginValue = marginValue >= 0? marginValue : 0;
             
             for(var i = 0; i < self.colCount; i++){
@@ -378,6 +379,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
                     if(num + 1 === sumNum && isLastTime) {
                         self.fire('renderComplete');
+                        console.log('222');
                         self.end();
                     }
                     
