@@ -33,7 +33,7 @@
 *   当是最后一次渲染的时候，传入一个布尔值true，作为标记，关系到renderComplete的触发
 * end:终止瀑布流渲染
 */
-KISSY.add('widgets/Waterfall/Waterfall', function(S) {
+KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
     var D = S.DOM,
         E = S.Event,
         UA = S.UA,
@@ -58,11 +58,12 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
     S.augment(Waterfall, {
         _init: function(config) {
             var self = this;
+            
             self.isEnd = false;
             self._bindParam(config);
-            self._bindEvent();
             //初始化一个工具给self.imgReady;
             self.imgReady = self._checkImgSizeInit();
+            self._bindEvent();
         },
         //配置参数
         _bindParam: function(o) {
@@ -83,6 +84,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
             
             function setParam(def, key) {
                 var v = o[key];
+                
                 self[key] = (v === undefined || v === null)? def : v;
             }
             
@@ -213,38 +215,31 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         },
         //判断是否滚动条达到底部临界点
         isGetBottom: function() {
-            /********************   
-            * 取窗口滚动条高度    
-            ******************/    
+            //取窗口滚动条高度    
             function getScrollTop() {     
-                var scrollTop=0;     
-                if(document.documentElement&&document.documentElement.scrollTop){     
+                var scrollTop = 0;     
+                if(document.documentElement && document.documentElement.scrollTop) {     
                     scrollTop=document.documentElement.scrollTop;     
                 }else if(document.body){     
                     scrollTop=document.body.scrollTop;     
                 }     
                 return scrollTop;     
             }     
-            /********************   
-            * 取窗口可视范围的高度    
-            *******************/    
+            //取窗口可视范围的高度    
             function getClientHeight() {     
-                var clientHeight=0;     
-                if(document.body.clientHeight&&document.documentElement.clientHeight){     
-                    var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;             
+                var clientHeight = 0;     
+                if(document.body.clientHeight && document.documentElement.clientHeight){     
+                    var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;             
                 }else{     
-                    var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;         
+                    var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;         
                 }     
                 return clientHeight;     
             }     
-                
-            /********************   
-            * 取文档内容实际高度    
-            *******************/    
+            //取文档内容实际高度    
             function getScrollHeight() { 
-                return Math.max(document.body.scrollHeight,document.documentElement.scrollHeight);     
+                return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);     
             }
-            if(getScrollTop()+getClientHeight() >= getScrollHeight() - 400) {
+            if(getScrollTop() + getClientHeight() >= getScrollHeight() - 400) {
                 return true;
             }     
             return false;
@@ -291,14 +286,15 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         /**
          * /把一次请求来的多项依次渲染
          * 实现瀑布流渲染完成的回调函数的原理：
-         *      1.判断isLastTime参数是否为真
-         *      2.如果1满足，则在每次渲染items成员时，给addNum加1，并判断是否addNum等于sumNum，为真则执行瀑布流渲染完成回调
-         * 这么实现的原因是每次渲染都是一个异步的过程，不确定哪一个item会是最后渲染完成，所以计数来判断才靠谱
+         * @param dataList {array} 数据集合，用于和模板拼装成代码块
+         * @param isLastTime {boolean} 标志是不是最后一次渲染，需要在dataList.length不为0的时候为true，否则无法触发renderComplete事件
          */
         load: function(dataList, isLastTime) {
             var self = this;
+
             if(dataList.length == 0) {
-                //传入了空的信息，认为是瀑布流结束
+                //传入了空的信息,以瀑布流结束处理
+                self.fire('renderComplete');
                 self.end();
                 return;
             }
@@ -307,15 +303,13 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 addNum = 0;
 
             self.index++;
-            
             showItems(items);
             function showItems(items) {
                 var num = 0,
                     maxNum = items.length;
-
+                
                 showItem(items, num);
                 function showItem(items, num) {
-                    
                     function delay(items, num) {
                         return function() {
                             var image = D.get('.' + self.imageClass, items[num]);
@@ -341,6 +335,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                 //obj是那个用于计算图片尺寸生成的img实例
                 function renderStart(obj, num) {
                     var con = self.getShortBrook();
+                    
                     if(obj.img) {
                         var img = obj.img,
                             item = img.relayDom,
@@ -361,28 +356,22 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
                     }
                     //插入前回调
                     if(self.callback.insertBefore) self.callback.insertBefore.call(item, imgData);
-                    //插入后回调
                     D.append(items[num], con);
+                    //插入后回调
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
+                    if(num + 1 === sumNum && isLastTime) {
+                        self.fire('renderComplete');
+                    }
+                    
                     new S.Anim(items[num] , {'opacity' : '1'} , 2 , 'easeOut', function() {
                         if (self.callback.itemComplete) self.callback.itemComplete.call(item, imgData);
-                        if (isLastTime) {
-                            addNum++;
-                        }
-                        if(isLastTime) {
-                            console.log(addNum);
-                            console.log(sumNum);
-                        }
-                        if (isLastTime && addNum === sumNum) {
-                            self.fire('renderComplete');
-                        }
                     }).run();
                     num++;
                     if (num < maxNum) {
                         showItem(items, num);
                         //重复插入报错
                         if(items[num-1] === items[num]){
-                            alert('error');
+                            console.error('item repeat!');
                         }
                     }
                     
@@ -392,12 +381,14 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
         //停止异步请求
         end: function() {
             var self = this;
+            
             self.isEnd = true;
             E.remove(window, 'scroll', self.scrollFn);
         },
         //绑定事件
         _bindEvent: function() {
             var self = this;
+            
             self.scrollFn = function() {
             if (!self.isGetBottom()) return;//滚动条未达到页尾则返回
                 self.fire('scrollToEnd');
@@ -408,9 +399,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S) {
     });
     S.Waterfall = Waterfall;
     return Waterfall;
-},
-{
-    require : ['Template']
-}
-);
+},{
+    requires: ['template']
+});
        
