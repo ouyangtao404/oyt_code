@@ -310,8 +310,8 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 return;
             }
             /**
-             * 如果有过正常的触发渲染完成的条件（(dataList.length > 0 && isLastTime)）,isRenderComplete置为真
-             * 如下赋值必须在if(self.isRenderComplete)return;的下方，是留给下次load执行的时候用
+             * 如果有过正常的触发渲染完成的条件（(dataList.length > 0 && isLastTime)）,isRenderComplete置为真 
+             * 如下赋值必须在if(self.isRenderComplete)return;的下方，是留给下次load执行的时候用的
              * 写在这个位置而不是在renderComplete触发之后的原因是，如果下方触发fire之后来设置，可能下次的load又开始执行，需要一个及时的标志
              */
             self.isRenderComplete = (dataList.length > 0 && isLastTime)? true : false;
