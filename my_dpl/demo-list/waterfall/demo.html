@@ -123,7 +123,7 @@ KISSY.use('widgets/Waterfall/Waterfall', function(S, Waterfall) {
 	    data: '',
 	    success: function(data) {
 	    	allData = data;
-	        renderWaterfall(data);
+	        renderWaterfall();
 	    }
 	});
 	
@@ -204,10 +204,10 @@ KISSY.use('widgets/Waterfall/Waterfall', function(S, Waterfall) {
     	w.on('scrollToEnd', function(e) {
     		var self = this,
     			dataList = getData(self.index);
-    		self.load(dataList);
+    		self.load(dataList, isLastTime(self.index));
     	});
     	w.on('renderComplete', function(e) {
-    		console.log('render complete!');
+    		alert('render complete!');
     	});
     }  
 });
