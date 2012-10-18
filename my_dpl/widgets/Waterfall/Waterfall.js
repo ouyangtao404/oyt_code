@@ -291,13 +291,31 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
          */
         load: function(dataList, isLastTime) {
             var self = this;
-
+            
+            //已经结束的话直接返回
+            if(self.isEnd) {
+                console.info('do not execute function load after render is completed!');
+                return;
+            };
+            
             if(dataList.length == 0) {
+                if(self.isRenderComplete) {
+                    return;
+                }
                 //传入了空的信息,以瀑布流结束处理
-                self.fire('renderComplete');
+                self.isRenderComplete = true;
                 self.end();
+                //把触发代码写最后，是因为可能监听函数里有阻塞，导致isRenderComplete置为true不及时，所以放到最后
+                self.fire('renderComplete');
                 return;
             }
+            /**
+             * 如果有过正常的触发渲染完成的条件（(dataList.length > 0 && isLastTime)）,isRenderComplete置为真
+             * 如下赋值必须在if(self.isRenderComplete)return;的下方，是留给下次load执行的时候用
+             * 写在这个位置而不是在renderComplete触发之后的原因是，如果下方触发fire之后来设置，可能下次的load又开始执行，需要一个及时的标志
+             */
+            self.isRenderComplete = (dataList.length > 0 && isLastTime)? true : false;
+            
             var items = self._createDom(dataList),
                 sumNum = items.length,
                 addNum = 0;
@@ -361,6 +379,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
                     if(num + 1 === sumNum && isLastTime) {
                         self.fire('renderComplete');
+                        console.log('222');
                         self.end();
                     }
                     
