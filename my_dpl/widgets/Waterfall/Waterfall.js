@@ -361,6 +361,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
                     if(num + 1 === sumNum && isLastTime) {
                         self.fire('renderComplete');
+                        self.end();
                     }
                     
                     new S.Anim(items[num] , {'opacity' : '1'} , 2 , 'easeOut', function() {
