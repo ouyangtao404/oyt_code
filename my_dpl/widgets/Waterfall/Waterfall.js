@@ -4,34 +4,40 @@
 * @class Waterfall
 * @param { object } 配置项
 * @return { object } 生成一个Waterfall实例
+* @depends kissy 1.2.0, template
 *
 * S.Waterfall：
 * 说明：瀑布流组件，通过new S.Waterfall 或者 new Waterfall来创建一个瀑布流,对于数据的限制，
     * 只需要给实例的success方法传入新创建的dom节点集合便可，success函数也可以由load函数的第一个参数来获取
     * 执行实例的end函数，才能停止瀑布流的继续渲染（机制是清除对滚动条到底部的相关监听函数）
 * 使用： new Waterfall(container, options);
-* 配置：
+* 配置：（brooks和（colCount,colWidth），必须配置其中一个）
 * brooks:{object} 指定几个容器，没有的话，需要组件会在容器里自动创建
-* basicHeight: {array} 各个容器的基本高度，建议不用填，会自动计算基本高度，使瀑布流底部优先插入视觉上考上的一列
 * brookName:{string} 瀑布流每列的class，默认为'J_plaza_brook'
 * colCount:{number} 瀑布流列数,若已经有制定的列容器则不用填
 * colWidth:{number} 每列宽度,若已经有制定的列容器则不用填
 * imageClass:{string} 瀑布流item的图片的class，用于有大图的item操作img元素
-* load:{function} 渲染函数，有3个参数分别为：渲染代码库的function，结束瀑布流渲染的function，瀑布流组件本身
-* insertBefore：{function} 每个item插入之前触发，this为该item，唯一的参数是改item的大图信息，如下 
-    * {
-    * isHasImg: false/true,有无图片，以及尺寸，无图片尺寸为0
-    * height: 100,
-    * width : 200
-    * };
-* insertAfter:{function} 每个item插入之后触发，this和参数同insetAfter
-* itemComplete:{function} 每个item显示完整（渐隐显示）后触发，this为该item
-* renderComplete:{function} 所有信息渲染完成（以实例的属性isLastTime为标记）后触发
-* 
-* S.Waterfall的实例的方法：
-* success:将数据和结构组合好的新建dom节点集合作为第一个参数传入，内容便可在瀑布流中展示
-*   当是最后一次渲染的时候，传入一个布尔值true，作为标记，关系到renderComplete的触发
-* end:终止瀑布流渲染
+* load:{function} 需要传入2个参数，
+	dataList{array} 数据集合
+	isLastTime{boolean} 为true时表示最后一次渲染数据,用于触发renderComplete事件的标记
+* callback:{object} 
+* 	支持的成员为：
+	{
+		ready: {function} 组件的基本配置完成后触发，回调函数里建议调用组件的load函数开始渲染数据
+		insertBefore：{function} 每个item插入之前触发，this为该item，唯一的参数是该item的大图信息，如下 
+	    *@example:
+	    *{
+		*    isHasImg: false/true,有无图片，以及尺寸，无图片尺寸为0
+		*    height: 100,
+		*    width : 200
+	    *};
+		insertAfter:{function} 每个item插入之后触发，this,还有传入参数insetAfter
+		itemComplete:{function} 每个item显示完整（渐隐显示）后触发，this为该item
+ 	}
+
+* 事件支持：
+* scrollToEnd: 浏览到底部触发，用于触发的时候渲染新的数据（与ready类似，在监听函数中，调用load渲染数据）
+* renderComplete: 所有信息渲染完成（以实例的属性isLastTime为标记）后触发
 */
 KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
     var D = S.DOM,
@@ -53,8 +59,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
     }
     //继承base可以设置自定义事件
     S.extend(Waterfall, S.Base);
-    //S.extend(Waterfall, S.EventTarget);
-    //S.augment(Waterfall, S.EventTarget);
+
     S.augment(Waterfall, {
         _init: function(config) {
             var self = this;
@@ -71,9 +76,8 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 brooks;
 
             //必须有的参数，没有配置到需要报错
-            if(!o.template || //template不存在
-               (!o.brooks && (!o.container || !o.colCount || !o.colWidth))//指定的溪流  且  构建溪流的3要素（容器，溪流宽度，溪流列数）都没有
-            ) {
+            //指定的溪流  且  构建溪流的3要素（容器，溪流宽度，溪流列数）都没有
+            if(!o.template || (!o.brooks && (!o.container || !o.colCount || !o.colWidth))) {
                 console.info('brooks不存在或container/colCount/colWidth不存在！');
                 return;
             }
@@ -84,7 +88,6 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             
             function setParam(def, key) {
                 var v = o[key];
-                
                 self[key] = (v === undefined || v === null)? def : v;
             }
             
