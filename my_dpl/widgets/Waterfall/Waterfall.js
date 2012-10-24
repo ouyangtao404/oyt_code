@@ -48,6 +48,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
     
     function Waterfall(container, config) {
         var self = this;
+        
         if(S.isString(container)) {
             self.container = D.get(container);
         }
@@ -168,10 +169,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 onready = function() {
                     newWidth = img.width;
                     newHeight = img.height;
-                    if (newWidth !== width || newHeight !== height ||
-                        // 如果图片已经在其他地方加载可使用面积检测
-                        newWidth * newHeight > 1024
-                    ) {
+                    if (newWidth !== width || newHeight !== height || newWidth * newHeight > 1024) {
                         ready.call(img);
                         onready.end = true;
                     };
@@ -198,11 +196,11 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
         },
 
         //渲染几列结构
-        _bindStructure: function(){
+        _bindStructure: function() {
             var self = this,
                 structure = '',
                 conWidth = D.width(self.container),
-                marginValue = parseInt((conWidth - self.colWidth*self.colCount)/(self.colCount - 1));
+                marginValue = parseInt((conWidth - self.colWidth * self.colCount) / (self.colCount - 1));
             
             marginValue = marginValue >= 0? marginValue : 0;
             
@@ -222,9 +220,9 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             function getScrollTop() {     
                 var scrollTop = 0;     
                 if(document.documentElement && document.documentElement.scrollTop) {     
-                    scrollTop=document.documentElement.scrollTop;     
-                }else if(document.body){     
-                    scrollTop=document.body.scrollTop;     
+                    scrollTop = document.documentElement.scrollTop;     
+                }else if(document.body) {  
+                    scrollTop = document.body.scrollTop;     
                 }     
                 return scrollTop;     
             }     
@@ -413,7 +411,9 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             var self = this;
             
             self.scrollFn = function() {
-            if (!self.isGetBottom()) return;//滚动条未达到页尾则返回
+            	if (!self.isGetBottom()) {
+            		return;//滚动条未达到页尾则返回	
+            	}
                 self.fire('scrollToEnd');
             }
             E.on(window, 'scroll', self.scrollFn);
