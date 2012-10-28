@@ -1,0 +1,23 @@
+.pagination{height:25px;font-family:Tahoma;float:left;position: relative;left: 50%;padding:30px 0 10px;}
+.page-bottom{position: relative;left: -50%;}
+* html .page-bottom{float:left;} 
+.pagination a, .page-info, .page-start, .page-end, .page-break, .page-skip, .page-cur{background:#fff;color:#444;float:left;height:23px;line-height:23px;overflow:hidden;min-width:15px;padding:0 5px;margin-right:5px;text-align:center;white-space:nowrap;font-size:13px;vertical-align:middle;font-family:Arial,SimSun;}
+.pagination a, .pagination .page-start,.pagination .page-end{border:solid 1px #ccc;}
+.pagination a:hover {border:solid 1px #F50;text-decoration: none;color:#ff7800;}
+.pagination .page-prev, .pagination .page-next, .pagination .page-end, .pagination .page-start{ background:url(http://img03.taobaocdn.com/tps/i3/T1MsRLXdVFXXXXXXXX.png) no-repeat;width:auto;font-size:12px;_padding-top:1px;_height:22px;/*font-family:'ËÎÌו'*/}
+.pagination .page-prev{padding-left:16px;background-position:-6px -924px;}
+.pagination .page-next{padding-right:16px;background-position:35px -942px;}
+.pagination .page-cur{cursor:auto;border:1px solid #F50;font-weight:700;color:#F50;background-color:#fff;}
+.pagination .num{
+	width:10px;
+	_width:13px;
+}
+.pagination .page-skip{color: #999;width: auto}
+.pagination .page-skip input{width:30px;height:18px;margin:0 5px;border:solid 1px #999;vertical-align:top;*vertical-align:middle;font-family:Arial,SimSun;text-align: center;}
+.pagination .page-skip button{width:37px;height:19px;margin:0 0 0 5px;border:0 none;background:url(http://img04.taobaocdn.com/tps/i4/T1qLJRXb8zXXXXXXXX-450-350.gif) -110px -72px no-repeat;text-indent:-999px;overflow:hidden;cursor:pointer}
+.pagination .replace-box{
+	float:left;
+}
+.hidden{
+	display:none;
+}

@@ -1,0 +1,72 @@
+//@import 'grid.less';//栅格布局
+@min-width:581px;
+
+#J_mainCon{
+  width:1020px;
+}
+#site-nav{
+  display:none;
+  background:red;
+}
+.area1 .lb a{
+  color:red;
+}
+#page2 header .search,
+.one{
+  -webkit-transition:all .2s ease;
+    -moz-transition:all .2s ease;
+    transition:all .2s ease;
+}
+@media screen and (max-width: 720px) {
+    .chl-baby .info-logo-and-search-wrap{
+      width:100%;
+      min-width:@min-width;
+    }
+    #footer .foot-nav{
+      overflow:hidden; 
+    }
+    #page2 header .search{
+      margin-left:147px;
+    }
+    #J_InfoSearchCondition{
+      display:none;
+    }
+    #J_InfoMainNav{
+      display:none;
+    }
+    #page2 .info-logo-and-search{
+      width:100%;
+      min-width:@min-width;
+      overflow:hidden;
+    }
+    #page2 .info-sub-chl-navigation{
+      width:100%;
+      min-width:@min-width;
+      overflow:hidden;
+    }
+    #J_InfoChlSubNav1{
+      width:100%;
+      min-width:@min-width;
+      height:52px;
+      overflow:hidden;
+    }
+    #content .con{
+      width:@min-width;
+      margin:0 auto;
+      
+    }
+    #J_mainCon{
+      width:609px;
+    }
+    #content{
+      width:100%;
+      min-width:@min-width;
+      overflow:hidden;
+    }
+    #site-nav{
+      display:none;
+    }
+
+}
+
+

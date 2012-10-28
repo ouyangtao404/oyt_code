@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+	<head>
+      <script src="http://a.tbcdn.cn/s/kissy/1.2.0/kissy-min.js"></script>
+      <meta charset="gbk">
+      <title>TREELIST</title>
+      <link rel="stylesheet" href="tree.css">
+      <link rel="stylesheet" href="treeList.css">
+      <link rel="stylesheet" href="demo3.css">
+      <link rel="stylesheet" href="reset.css">
+     
+</head>
+<script>
+var message="";
+///////////////////////////////////
+function clickIE() {if (document.all) {(message);return false;}}
+function clickNS(e) {if 
+(document.layers||(document.getElementById&&!document.all)) {
+if (e.which==2||e.which==3) {(message);return false;}}}
+if (document.layers) 
+{document.captureEvents(Event.MOUSEDOWN);document.onmousedown=clickNS;}
+else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;}
+document.oncontextmenu=new Function("return false")
+</script>
+<body>
+									
+<div id="cover" class="hidden"></div>
+<div id="rPop2" style="position:absolute;top:0;left:0;display:none;">
+	<ul class="clearfix">
+		<li>修改文件名</li>
+		<li>删除文件</li>
+		<li>新增文件</li>
+		<li>删除文件</li>
+	</ul>
+</div>
+	<div id="page" class="clearfix">
+	<button class="bt3" id="ipChange" type="button">添加/编辑机器</button>
+	<div class="l">
+		<div id='root' class="goog-tree-root"></div>
+	</div>
+	<div class="r">
+		<div id="ipOperateBox" class="hidden">
+			<div class="iphd">机器列表</div>
+			<div class="ipbd">
+				<p class="tips">请在下面机器列表中选择：</p>
+				<div class="ipList">
+					<div class="addNewIp">
+					</div>
+					<ul class="list clearfix"></ul>
+				</div>
+				<div id="J_ipButton">
+				</div>
+			</div>
+		</div>
+		<div class="btn-button" id="ipButtons" style="display:none;"></div>
+		<div id="J_ButtonBig">
+			<button class="btnl" type="button" id="reset">重置</button><button class="btnr" id="submit" type="button">提交</button>
+		</div>
+		<div class="hd">
+			<h2>
+				功能描述
+			</h2>
+			<span class="clearfix"><a id="modify" href="javascript:void(0);">修改</a></span>
+		</div>
+		<div class="txt" id="descript" >
+			
+		</div>
+		<div class="hd">
+			<h2>
+				机器列表
+			</h2>	
+		</div>
+		<div class="valueType">
+		<div class="hc clearfix" id="tabBig">
+			
+		</div>
+
+	</div>
+
+</div>
+
+  <script src="treeList.js"></script>    
+  				
+     
+   <!--</div>-->
+</body></html>

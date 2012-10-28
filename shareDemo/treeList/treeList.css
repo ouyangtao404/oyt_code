@@ -1,0 +1,613 @@
+
+body{
+	background:#ccc;
+	position:relative;
+}
+#page{
+	width: 929px;
+	height: 599px;
+	border:1px solid #787878;
+	margin:0 auto;
+	background:#fff;
+	position:relative;
+}
+
+#page .l{ 
+	float:left;
+	width:189px;
+	height: 460px;
+	border:1px solid #bebebe;
+	margin-top: 46px;
+	margin-left: 30px;
+	overflow-y: scroll; 
+	scrollbar-face-color: #DBEBFE; 
+	scrollbar-shadow-color: #B8D6FA; 
+	scrollbar-highlight-color: #FFFFFF; 
+	scrollbar-3dlight-color: #DBEBFE; 
+	scrollbar-darkshadow-color:#458CE4; 
+	scrollbar-track-color: #FFFFFF; 
+	scrollbar-arrow-color: #458CE4"
+}
+.r{
+	float:left;
+	width: 687px;
+	height: 517px;
+	margin-top:48px;
+	margin-left:21px;
+	position:relative;
+}
+#close,
+.close,
+#ipOperateBox .list .xg,
+#ipOperateBox .list .sc,
+.r .hd,.r .btn-button .bt1,
+#ipChange,
+.r .btn-button .bt2,
+.r .btn-button .bt3,
+.hr .tabpage span .btnl,
+.hr .tabpage span .btnr{
+	background:url(bg.gif) no-repeat;
+}
+
+.r .hd{
+	width:652px;
+	height:32px;
+	background-position: 1px 0px;
+	
+	border-bottom: 2px solid #656565;
+}
+
+.r .hd h2{
+	width:101px;
+	height:32px;
+	left:1px;
+	text-align:center;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.r .hd span{
+	width:496px;
+	height:32px;
+	margin-right:30px;
+	left:1px;
+	text-align:right;
+	left:15px;
+	display:table-cell;
+	vertical-align: middle;
+}
+.r .hd span a{
+	text-decoration: none;
+}
+.r .txt{
+	width:652px;
+	height:98px;
+	position:relative;
+}
+
+.r .txt p.mesp{
+	width:640px;
+	font-size:13px;
+	padding-top:8px;
+	padding-left:10px;
+	overflow-y:scroll;
+	height:70px;
+	border:1px solid #E4E4E4;
+	background:#ccc;
+	border-radius:0 0 3px 3px;
+}
+.r .txt .mesT{
+	width:640px;
+	font-size:13px;
+	padding-left:10px;
+	overflow-y:scroll;
+	height:78px;
+	border:1px solid #E4E4E4;
+	background:#565357;
+	color:#fff;
+	border-radius:0 0 3px 3px;
+}
+.r .txt textarea{
+	width:614px; 
+	height:36px;
+}
+.r .hc{
+	float:left;
+	width:572px;
+	height:332px;
+	position:relative;
+	padding:20px 0px 0px 16px;
+}
+
+.hc .leftUl{
+	width:171px;
+	height:229px;
+	border:1px solid #e4e4e4;
+	display:block;
+	overflow-y:scroll;
+	
+	/*overflow: hidden;*/
+
+	/*background:#8CA6A3;*/
+}
+
+.hc .leftUl .ks-active{
+	color:red;
+}
+.hc .leftUl li{
+	position:relative;
+}
+.hc .leftUl li label{
+	width:145px;
+	height:100%;
+	line-height:15px;
+	padding-left:25px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.hc .leftUl .ks-active span{
+	width:162px;
+	padding-left:8px;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.hc .leftUl .ks-active span input{
+	float:left;
+	margin-right:3px;
+}
+.hc .leftUl .ks-active span em{
+	float:left;
+	font-size:12px;
+}
+
+.hc .leftUl li{
+	width:170px;
+	height:15px;
+	overflow:hidden;
+} 
+
+.hc .leftUl li span{
+	width:170px;
+	height:15px;
+	padding-left:8px;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.hc .leftUl li span input{
+	float:left;
+	margin-right:3px;
+}
+.hc .leftUl li span em{
+	float:left;
+	font-size:12px;
+}
+
+
+
+.hr{
+	float:left;
+	width:391px;
+	height:229px;
+	/*background:#ACF3ED;*/
+	border-right:1px solid #e4e4e4;
+	border-top:1px solid #e4e4e4;
+	border-bottom:1px solid #e4e4e4;
+	overflow:hidden;
+	/*border-left:1px solid #fff;*/
+}
+
+
+
+.hr .tabpage ul{
+	width:315px;
+	height:15px;
+	margin:0 0 19px 30px;
+	padding-top:10px;
+}
+
+.hr .tabpage ul li{
+	float:left;
+	height:15px;
+	font-size:14px;
+}
+#page #tabpage ul{
+	border:none;
+}
+#page #tabpage .linum{
+	width:62px;
+}
+#page #tabpage .li2{
+	width:78px;
+}
+#page #tabpage .li4{
+	width:78px;
+}
+
+.hr .tabpage ul li em{
+	float:left;
+	margin-top:-2px;
+	margin-left:2px;
+}
+
+.hr .tabpage textarea{
+	width:301px;
+	height:61px;
+	width:300px;
+	height:95%;
+	overflow-y:scroll;
+}
+
+.hr .tabpage span{
+	width:135px;
+	height:26px;
+	margin-left:133px;
+	display:block;
+}
+.hr .tabpage span .btnl{
+	float:left;
+	width:51px;
+	height:26px;
+	border:0px;
+	background-position: 0px -40px;
+	
+}
+
+.hr .tabpage span .btnr{
+	float:right;
+	width:51px;
+	height:26px;
+	border:0px;
+	background-position: 0px -40px;
+}
+
+
+
+button{
+	cursor:pointer;
+}
+.r .btn-button{
+	width:305px;
+	height:32px;
+	position:absolute;
+	bottom:60px;
+	left:16px;
+	z-index:10;
+}
+.r .btn-button .bt1{
+	border:0px;
+	width:51px;
+	height:26px;
+	background-position: 0px -40px;
+	
+}
+.r .btn-button .bt2{
+	border:0px;
+	width:112px;
+	height:26px;
+	background-position: 0 -70px;
+}
+
+#ipChange{
+	cursor:pointer;
+	border:0px;
+	width:112px;
+	height:26px;
+	background-position: 0 -101px;
+	position:absolute;
+	bottom:60px;
+	left:63px;
+}
+.tabCon{
+	border:1px solid black;
+	width:300px;
+	overflow:hidden;
+	height:200px;
+	background:#ddf6fa;
+}
+.tabCon .stringBox{
+	width:300px;
+	height:200px;
+	background:#565357;
+	color:#fff;
+}
+.tabCon2{
+	width:210px;
+	height:190px;
+	padding:10px 0 0 90px;
+}
+.tabpage{
+	width:350px;
+	height:230px;
+}
+.tabpage .con{
+	height:108px;
+	width: 300px;
+	overflow:hidden;
+	margin:0 0 5px 30px;
+	border:2px solid black;
+}
+.tabpage .linum{
+	width:70px;
+	height:25px;
+	float: left;
+	position:relative;
+	}
+.tabpage .linum label{
+	width:55px;
+	padding-left:15px;
+	height:100%;
+	float:left;
+	position:absolute;
+	left:0;
+	right:0;
+}
+.tabpage .li2 label{
+	width:63px;
+	padding-left:12px;
+}
+.tabpage .li2{
+	width:75px;
+}
+
+.hc .ipUl{
+    height: 229px;
+    width: 171px;
+    
+    float:left;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    border:1px solid black;
+}
+.goog-tree-row span.showing{
+	color:red;
+}
+#J_tabBig{
+	overflow-x;scroll;
+	width:171px;
+	height:230px;
+	float:left;
+	
+}
+#ipBox{
+	overflow-x;scroll;
+}
+.hc .con{
+	float:left;
+	height:230px;
+	overflow:hidden;
+}
+.hc .con{
+	float:left;
+	height:230px;
+	overflow:hidden;
+}
+.hc .con2 {
+    height: 230px;
+    overflow: hidden;
+    padding-left: 30px;
+}
+.hc .number input{
+	background:#5f5a4c;
+	color:#fff;
+}
+.tabpage .valueType{
+	height:20px;
+	width:300px;
+	overflow:hidden;
+	padding-left:30px;
+}
+.tabpage .valueType .ks-active{
+	color:red;
+}
+#J_buttonBox{
+    bottom: 70px;
+    height: 40px;
+    position: absolute;
+    right: 70px;
+    width: 100px;
+}
+#J_ButtonBig{
+    bottom: 10px;
+    height: 40px;
+    position: absolute;
+    right: 120px;
+    width: 100px;
+    font-weight:bold;
+    z-index:10;
+}
+#modify{
+	width:40px;
+	height:20px;
+	display:block;
+	float:right;
+	border:1px solid black;
+	border-radius:3px;
+	background:#fbdd94;
+	line-height:20px;
+	text-align:center;
+	color:black;
+}
+#modify:hover{
+	background:#bc0000;
+	color:#fff;
+}
+#J_buttonBoxMes{
+	width:100px;
+	height:40px;
+	position:absolute;
+	right:20px;
+	bottom:-25px;
+}
+#ipOperateBox{
+	position:absolute;
+	top:0;
+	left:175px;
+	width:400px;
+	height:350px;
+	background:#d8effd;
+	z-index:99;
+	border:3px solid #648aa3;
+	border-radius:2px;
+}
+#ipOperateBox .iphd{
+	width:380px;
+	height:30px;
+	line-height:30px;
+	padding-left:20px;
+	background:#95d6ff;
+	border-bottom:1px solid #648aa3;
+}
+#ipOperateBox .ipbd{
+	width:395px;
+	padding-left:5px;
+	height:300px;
+}
+#ipOperateBox .ipbd .tips{
+	width:100%;
+	height:20px;
+	font-size:12px;
+	padding-top:10px;
+}
+#ipOperateBox .ipList{
+	width:280px;
+	height:250px;
+	overflow:hidden;
+	margin-left:50px;
+	background:#ebf7ff;
+	border:1px solid #ccc;
+}
+#J_ipButton{
+	width:120px;;
+	margin:5px 0 0 140px;;
+}
+#J_ipButton button{
+}
+.hidden{
+	display:none;
+}
+#ipOperateBox .addNewIp{
+	width:100%;
+	height:30px;
+	overflow:hidden;
+}
+#ipOperateBox .list{
+	width:280px;
+	height:200px;
+	background:#fff;
+	overflow-y:scroll;
+	display:block;
+}
+#ipOperateBox .list li.one{
+	width:100%;
+	height:30px;
+	float:left;
+	overflow:hidden;
+	line-height:30px;
+	font-size:12px;
+}
+#ipOperateBox .list li.selected .ipValue{
+	color:red;
+}
+#ipOperateBox .list .hoverBox{
+	width:100%;
+	height:30px;
+	display:block;
+	overflow:hidden;
+	color:black;
+	text-decoration:none;
+	cursor:auto;
+}
+#ipOperateBox .list .ipValue{
+	width:100px;
+	float:left;
+	padding-left:25px;
+}
+#ipOperateBox .list .xg,#ipOperateBox .list .sc{
+	float:left;
+	width:12px;
+	height:12px;
+	background-position:0 -147px;
+	cursor:pointer;
+	margin:10px 0 0 82px;
+	display:none;
+}
+#ipOperateBox .list .sc{
+	background-position:-21px -148px;
+	margin:10px 0 0 10px;
+}
+#ipOperateBox .list .hoverBox:hover{
+	background:#ebebeb;
+}
+#ipOperateBox .list .hoverBox:hover .xg,#ipOperateBox .list .hoverBox:hover .sc{
+	display:block
+}
+#ipOperateBox .ipList .inputBox{
+	display:none;
+}
+#ipOperateBox .ipList .bj .inputBox{
+	padding:5px 0 0 26px;
+	display:block;
+}
+#ipOperateBox .ipList .addButton{
+	margin:6px 17px 0;
+	display:block;
+}
+#ipOperateBox .ipList .bj .addButton{
+	display:none;
+}
+#cover{
+	width:100%;height:100%;background-color: rgb(255, 255, 255); opacity: 0.5; position: fixed; z-index: 100;overflow: hidden;border: 0pt none; padding: 0pt; margin: 0pt; top: 0pt; left: 0pt; position: fixed; z-index: 98;
+	visibility: visible;overflow: hidden;
+	
+}
+#close,.close{
+	width:12px;
+	height:12px;
+	display:block;
+	position:absolute;
+	top:8px;
+	right:8px;
+	cursor:pointer;
+	background-position:-21px -148px;
+}
+#rPop{
+	font-size:12px;
+	width:70px;
+	background:#fff;
+	z-index:99;
+	border:1px solid black;
+}
+#rPop ul{
+	width:100%;
+}
+#rPop ul li{
+	width:65px;
+	padding-left:5px;
+	height:18px;
+	line-height:18px;
+	overflow:hidden;
+	display:block;
+	cursor:pointer;
+}
+#rPop ul li:hover{
+	background:#ccc;
+}
+.change{
+	background-color:#FBDD94;
+}
+#rClick{
+	position:absolute;width:210px;height:40px;border:1px solid black;background:#ccc;left:250px;top:100px;z-index:99;padding:40px 10px 10px 10px;
+}
+#rClick .title{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:20px;
+	width:180px;
+	padding:3px 0 0 5px;
+}
+
+

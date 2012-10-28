@@ -1,0 +1,224 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js ie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7]><html class="no-js ie ie7 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8 lte9 lte8"> <![endif]-->
+<!--[if IE 9]><html class="no-js ie ie9 lte9"> <![endif]-->
+<!--[if gt IE 9]><html class="no-js"><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+<head>
+    <meta charset="gbk">
+    <title>我的瀑布流-指定brooks</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 响应式设计代码 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link type="image/x-icon" href="http://www.taobao.com/favicon.ico" rel="shortcut icon" />
+    <!-- html5reset and css3 -->
+    <link rel="stylesheet" href="http://a.tbcdn.cn/??p/global/1.0/global-min.css,app/dp/s/html5/css/common-min.css"/>
+    <!--[if lt IE 9]><script src="http://a.tbcdn.cn/app/dp/s/html5/js/??html5shiv-min.js,modernizr-v2.5.3-min.js"></script><![endif]-->
+    <!--[if gte IE 9]><!--><script src="http://a.tbcdn.cn/app/dp/s/html5/js/modernizr-v2.5.3-min.js"></script><!--<![endif]-->
+	<script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js"></script>
+	
+	<link id="assets-css" rel="stylesheet" href="assets/style.css"/>
+	<link id="assets-css" rel="stylesheet" href="../../core/config.css"/>
+	<script id="apps-js" src="assets/demo.js"></script>
+	<script id="apps-js" src="../../core/config.js"></script>
+	
+</head>
+<body>
+    <div class="page">
+       <!-- 页头 begin -->
+       <header class="header">
+          <h1>瀑布流</h1>
+       </header>
+       <!-- 页头 end -->
+       <!-- 主体 begin -->
+       <div class="content clearfix">
+          <div class="J_plaza_brook" style="float:left;margin-right:14px;width:237px;"></div>
+          <div class="J_plaza_brook" style="float:left;margin-right:14px;width:237px;"></div>
+          <div class="J_plaza_brook" style="float:left;margin-right:14px;width:237px;"></div>
+          <div class="other" style="float:left;width:237">
+          		<div style="width:200px;height:500px;background:red;text-align:center;line-height:50px;">干扰元素</div>
+          		<div class="J_plaza_brook" style="float:left;margin-right:0;width:237px;"></div>
+          </div>
+          
+       </div>
+       <!-- 主体 end -->
+       <!-- 页脚 begin -->
+       <footer class="footer">
+       </footer>
+       <!-- 页脚 end -->
+    </div>
+<script type="tpl" id="waterfall_tpl">
+<div class="waterfall-item">
+    <div class="item-con">
+        <h3 class="title">
+            <a href="/article_detail.htm?article_id={{articleId}}" target="_blank" title="{{articletitle}}">
+             {{#if recommend != 0}}
+            <span class="Jcss_jian">[荐]</span>
+            {{/if}}
+            {{#if original == 1}}
+            <span class="Jcss_jian">[原创]</span>
+            {{/if}}
+            {{articletitle}}
+            </a>
+        </h3>
+        <span class="author">作者：
+        <a target="_blank" href="{{nameurl}}" title="{{username}}">{{username}}
+            {{#if role == "2"}}
+                <s class="vip-ico"></s>
+            {{/if}}
+            {{#if role == "5"}}
+                <s class="vip-ico"></s>
+            {{/if}}
+        </a>
+        </span>
+        {{#if summarizeimg != ""}}
+            <div class="img-box">
+                <a class="big-img" target="_blank" href="/article_detail.htm?article_id={{articleId}}">
+                    <img class="oneimg" style="width:235px" src="{{summarizeimg}}"/>
+                </a>
+            </div>
+            <s class="mask"></s>
+        {{/if}}
+        <p class="para">{{summarize}}<a class="lookMore" target="_blank" href="/article_detail.htm?article_id={{articleId}}">阅读全文</a></p>
+        <ul class="operation clearfix">
+            <li class="read-li">
+                <a target="_blank" class="read icon" href="/article_detail.htm?article_id={{articleId}}" title="阅读">{{read}}</a>
+            </li>
+            <li class="collect-li J_operate" data-articleid="{{articleId}}" data-title="{{articletitle}}" data-userid="{{userid}}">
+                {{#if isCollect}}
+                <a class="collect icon cancelcollectbtn" href="javascript:void(0);" title="取消收集">{{collect}}</a>
+                {{/if}}
+                {{#if !isCollect}}
+                <a class="collect icon collectbtn" href="javascript:void(0);" title="收集">{{collect}}</a>
+                {{/if}}
+            </li>
+            <li class="comment-li" data-articleid="{{articleId}}" data-title="{{articletitle}}" data-userid="{{userid}}">
+                <a class="comment icon" target="_blank" href="/article_detail.htm?article_id={{articleId}}" title="评论">
+                    {{#if commentcount != 0}}
+                       {{commentcount}}
+                    {{/if}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="boxshadow"></div>
+  </div>
+</script>
+<script type="text/javascript">
+KISSY.use('widgets/Waterfall/Waterfall', function(S, Waterfall) {
+	var S = KISSY, 
+        D = S.DOM, 
+        E = S.Event,
+        _A = S.all,
+        _O = S.one,
+        allData,
+        waterfall_tpl = D.get('#waterfall_tpl').innerHTML;
+        
+	S.ajax({
+	    url: '../../imitate-data/waterfall.json',
+	    dataType: 'json',
+	    data: '',
+	    success: function(data) {
+	    	allData = data;
+	        renderWaterfall(data);
+	    }
+	});
+	
+	var isOverHeight = function(obj) {
+        var self = this,
+        	imageMaxHeight = 300,
+        	defaultWidth = 235;
+        	
+        if(imageMaxHeight/defaultWidth < obj.height/obj.width){
+        	//超出限高
+            return true;
+        }
+        return false;
+   	};
+   	
+   	function getData(index) {
+   		//信息都在allData中;
+   		var onceNum = 10,
+   			items = allData.items,
+   			startNum = onceNum * index,
+   			endNum = onceNum * index + 10,
+   			dataList = [];
+   		
+   		if(endNum > items.length) {
+   			endNum = items.length;
+   		}	
+   		for(var i = startNum; i < endNum; i++) {
+   			dataList[dataList.length] = items[i];
+   		}
+		return dataList;
+   	}
+   	function isLastTime(index) {
+   		if(!index) {
+   			console.error('param of function isLastTime is miss!');	
+   		}
+   		//信息都在allData中;
+   		var onceNum = 10,
+   			items = allData.items,
+   			endNum = onceNum * index + 10;
+
+   		if(endNum >= items.length) {
+   			return true;
+   		}
+   		return false;
+   	}
+ /**=====================================================
+ * 改进的方面：
+ * 	1.支持自定义事件，代码更干净
+ *  2.接口的设计更能让用户理解
+ *  3.对于使用场景的兼容，也考虑得更周到
+ * 
+ =====================================================*/
+    function renderWaterfall() {
+    	var w = new Waterfall('#contents', {
+    		brooks: D.query('.J_plaza_brook'),
+    		imageClass: 'oneimg',
+    		template: waterfall_tpl,
+    		callback: {
+    			ready: function() {
+	    			var self = this;
+		    		self.load(getData(self.index));
+    			},
+    			insertBefore: function(imgData) {
+    				var _self = this;//该item
+		        	if(!imgData.isHasImg)return;//没有图片的item
+		        	
+		        	if(isOverHeight(imgData)) {
+		        		var img = D.get('.big-img', _self);
+		                D.css(img, 'height', 300);
+		                D.css(D.get('.mask', D.parent(img, '.waterfall-item')), 'display', 'block');
+		            }
+    			},
+    			insertAfter: function(imgData) {
+    				var _self = this;//该item
+	            	if(!imgData.isHasImg)return;//没有图片的item
+	            	
+	            	if(isOverHeight(imgData)) {
+	            		var img = D.get('.big-img', _self);
+	                    D.css(img, 'height', 300);
+	                    D.css(D.get('.mask', D.parent(img, '.waterfall-item')), 'display', 'block');
+	                }
+    			}
+    		}
+    	});
+    	w.on('scrollToEnd', function(e) {
+    		var self = this,
+    			dataList = getData(self.index);
+    		self.load(dataList);
+    	});
+    	w.on('renderComplete', function(e) {
+    		console.log('render complete!');
+    	});
+    }  
+});
+
+</script>
+</body>
+</html>

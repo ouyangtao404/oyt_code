@@ -1,0 +1,161 @@
+.J_popBoxMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    filter: alpha(opacity = 30);
+    opacity: 0.3;
+    z-index: 10000000;
+    display: none
+}
+
+.J_popBoxWrap {
+    background: rgba(180, 213, 194, 0.8);
+    position: absolute;
+    z-index: 11000000;
+	background:none\9;
+    filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#66000000,endColorStr=#66000000)\9;
+	overflow:hidden;
+	padding:5px;
+	display:none;
+}
+
+.J_popBoxWrapContent {
+    background: url("http://img02.taobaocdn.com/tps/i2/T16WJqXaXeXXXXXXXX-32-32.gif") no-repeat center center #fff;
+	z-index:11000009;
+	position:relative;
+	border:1px solid #99c8ad;
+}
+.J_popBoxWrap iframe.shim {
+	position:absolute;
+	width:1000px;
+	height:1000px;
+	top:0px;
+	left:0px;
+	filter: alpha(opacity = 0);
+    opacity: 0;
+}
+
+.J_popBoxWrap .pop-confirm .msg,.J_popBoxWrap .pop-alert .msg {
+	padding:35px;
+	color:#404040;
+	text-align:center;
+	font-size: 14px;
+}
+.J_popBoxWrap .pop-confirm .msg em,.J_popBoxWrap .pop-alert .msg em{
+	color:#f00;
+}
+.J_popBoxWrap .pop-confirm .nor-btn,.J_popBoxWrap .pop-alert .nor-btn {
+	display:inline-block;
+}
+/*.J_popBoxWrap .pop-confirm .nor-btn {
+	display:inline-block;
+	-moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	border:solid 1px #ccc;
+	color:#404040;
+}*/
+.J_popBoxWrap .pop-confirm .op,.J_popBoxWrap .pop-alert .op {
+	text-align:center;
+	font-weight:normal;
+}
+/*.J_popBoxWrap .pop-confirm .nor-btn b {
+	border:solid 1px #fff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#dfdfdf));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #dfdfdf);
+    background-image:    -moz-linear-gradient(top, #f6f6f6, #dfdfdf);
+    background-image:     -ms-linear-gradient(top, #f6f6f6, #dfdfdf);
+    background-image:      -o-linear-gradient(top, #f6f6f6, #dfdfdf);
+    background-image:         linear-gradient(top, #f6f6f6, #dfdfdf);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f6f6f6', EndColorStr='#dfdfdf');
+	display:inline-block;
+	padding:1px 15px;
+	-moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	cursor:pointer;
+}
+.J_popBoxWrap .pop-confirm .nor-btn:hover{
+	-moz-transition: all 0.3s ease-out; 
+       -o-transition: all 0.3s ease-out;  
+  -webkit-transition: all 0.3s ease-out;  
+      -ms-transition: all 0.3s ease-out; 
+          transition: all 0.3s ease-out; 
+		  border-color:#808080;
+		  text-decoration:none;
+}*/
+.J_popBoxWrap .pop-alert .J_sure {
+	width:53px;
+	height:24px;
+	line-height:24px;
+	right:26px;
+	cursor:pointer;
+	background:url('http://img02.taobaocdn.com/tps/i2/T1ni_XXjlpXXXLinfS-300-130.png') no-repeat -60px -106px;
+	color:#FFFFFF;
+}
+.J_popBoxWrap .pop-alert .J_sure:hover{
+    text-decoration:none;
+}
+.J_popBoxWrap .pop-confirm .nor-btn {
+	cursor:pointer;
+	width:60px;
+	height:28px;
+	color:#404040;
+	line-height:28px;
+	border:solid 1px #cfcfcf;
+}
+/*ÀÖ»î+ µ¯´°ÑùÊ½*/
+.J_popBoxWrap .J_popwin_img .facewrap,
+.J_popBoxWrap .J_popwin_img .operate{
+    float:left;
+    display:inline;
+}
+.J_popBoxWrap .J_popwin_img a:hover{
+    text-decoration:none;
+}
+.J_popBoxWrap .J_popwin_img .facewrap,
+.J_popBoxWrap .J_popwin_img .operate .okclear,
+.J_popBoxWrap .J_popwin_img .operate .cannelclear{
+    background:url('http://img02.taobaocdn.com/tps/i2/T1ni_XXjlpXXXLinfS-300-130.png') 0 0 no-repeat;
+}
+
+
+.J_popBoxWrap .J_popwin_img .facewrap{
+    width:100px;
+    height:100px;
+    margin:30px 20px 0 20px;
+}
+.J_popBoxWrap .J_popwin_img .beishanga{
+    background-position:0 0 ;
+}
+.J_popBoxWrap .J_popwin_img .kaixina{
+    background-position:-100px 0 ;
+}
+.J_popBoxWrap .J_popwin_img .operate{
+    margin:50px 0 0 0;
+}
+.J_popBoxWrap .J_popwin_img .operate h6{
+    color:#3d3d3d;
+    margin-bottom:20px;
+    font-weight:normal;
+}
+.J_popBoxWrap .J_popwin_img .operate .okclear{
+    width:53px;
+    height:24px;
+    line-height:22px;
+    display:inline-block;
+    background-position:0 -106px;
+    text-align:center;
+    color:#878787;
+    margin-right:20px;
+}
+.J_popBoxWrap .J_popwin_img .operate .cannelclear{
+    width:53px;
+    height:24px;
+    line-height:22px;
+    display:inline-block;
+    background-position:-60px -106px;
+    text-align:center;
+    color:#FFFFFF;
+}
