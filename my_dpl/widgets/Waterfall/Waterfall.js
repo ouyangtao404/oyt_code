@@ -1,43 +1,43 @@
 /**
-* Waterfall.js | ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* Waterfall.js | ÆÙ²¼Á÷×é¼þ
 * @author baohe.oyt@taobao.com
 * @class Waterfall
-* @param { object } ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-* @return { object } ï¿½ï¿½ï¿½Ò»ï¿½ï¿½WaterfallÊµï¿½ï¿½
+* @param { object } ÅäÖÃÏî
+* @return { object } Éú³ÉÒ»¸öWaterfallÊµÀý
 * @depends kissy 1.2.0, template
 *
-* S.Waterfallï¿½ï¿½
-* Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½new S.Waterfall ï¿½ï¿½ï¿½ï¿½ new Waterfallï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½Æ£ï¿½
-    * Ö»ï¿½ï¿½Òªï¿½ï¿½Êµï¿½ï¿½ï¿½successï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½domï¿½Úµã¼¯ï¿½Ï±ï¿½É£ï¿½successï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½loadï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡
-    * Ö´ï¿½ï¿½Êµï¿½ï¿½ï¿½endï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½Ù²ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½
-* Ê¹ï¿½Ã£ï¿½ new Waterfall(container, options);
-* ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½brooksï¿½Í£ï¿½colCount,colWidthï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
-* brooks:{object} Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ÐµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
-* brookName:{string} ï¿½Ù²ï¿½ï¿½ï¿½Ã¿ï¿½Ðµï¿½classï¿½ï¿½Ä¬ï¿½ï¿½Îª'J_plaza_brook'
-* colCount:{number} ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-* colWidth:{number} Ã¿ï¿½Ð¿ï¿½ï¿½,ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-* imageClass:{string} ï¿½Ù²ï¿½ï¿½ï¿½itemï¿½ï¿½Í¼Æ¬ï¿½ï¿½classï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Í¼ï¿½ï¿½itemï¿½ï¿½ï¿½ï¿½imgÔªï¿½ï¿½
-* load:{function} ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	dataList{array} ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½
-	isLastTime{boolean} ÎªtrueÊ±ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½renderCompleteï¿½Â¼ï¿½ï¿½Ä±ï¿½ï¿½
-* callback:{object} 
-* 	Ö§ï¿½ÖµÄ³ï¿½Ô±Îªï¿½ï¿½
-	{
-		ready: {function} ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºó´¥·ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï½¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½loadï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½È¾ï¿½ï¿½ï¿½
-		insertBeforeï¿½ï¿½{function} Ã¿ï¿½ï¿½itemï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½thisÎªï¿½ï¿½itemï¿½ï¿½Î¨Ò»ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½itemï¿½Ä´ï¿½Í¼ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-	    *@example:
-	    *{
-		*    isHasImg: false/true,ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ß´ç£¬ï¿½ï¿½Í¼Æ¬ï¿½ß´ï¿½Îª0
-		*    height: 100,
-		*    width : 200
-	    *};
-		insertAfter:{function} Ã¿ï¿½ï¿½itemï¿½ï¿½ï¿½ï¿½Ö®ï¿½ó´¥·ï¿½ï¿½ï¿½this,ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½insetAfter
-		itemComplete:{function} Ã¿ï¿½ï¿½itemï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ó´¥·ï¿½ï¿½ï¿½thisÎªï¿½ï¿½item
- 	}
+* S.Waterfall£º
+* ËµÃ÷£ºÆÙ²¼Á÷×é¼þ£¬Í¨¹ýnew S.Waterfall »òÕß new WaterfallÀ´´´½¨Ò»¸öÆÙ²¼Á÷,¶ÔÓÚÊý¾ÝµÄÏÞÖÆ£¬
+* Ö»ÐèÒª¸øÊµÀýµÄsuccess·½·¨´«ÈëÐÂ´´½¨µÄdom½Úµã¼¯ºÏ±ã¿É£¬successº¯ÊýÒ²¿ÉÒÔÓÉloadº¯ÊýµÄµÚÒ»¸ö²ÎÊýÀ´»ñÈ¡
+* Ö´ÐÐÊµÀýµÄendº¯Êý£¬²ÅÄÜÍ£Ö¹ÆÙ²¼Á÷µÄ¼ÌÐøäÖÈ¾£¨»úÖÆÊÇÇå³ý¶Ô¹ö¶¯Ìõµ½µ×²¿µÄÏà¹Ø¼àÌýº¯Êý£©
+* Ê¹ÓÃ£º new Waterfall(container, options);
+* ÅäÖÃ£º£¨brooksºÍ£¨colCount,colWidth£©£¬±ØÐëÅäÖÃÆäÖÐÒ»¸ö£©
+* brooks:{object} Ö¸¶¨¼¸¸öÈÝÆ÷£¬Ã»ÓÐµÄ»°£¬ÐèÒª×é¼þ»áÔÚÈÝÆ÷Àï×Ô¶¯´´½¨
+* brookName:{string} ÆÙ²¼Á÷Ã¿ÁÐµÄclass£¬Ä¬ÈÏÎª'J_plaza_brook'
+* colCount:{number} ÆÙ²¼Á÷ÁÐÊý,ÈôÒÑ¾­ÓÐÖÆ¶¨µÄÁÐÈÝÆ÷Ôò²»ÓÃÌî
+* colWidth:{number} Ã¿ÁÐ¿í¶È,ÈôÒÑ¾­ÓÐÖÆ¶¨µÄÁÐÈÝÆ÷Ôò²»ÓÃÌî
+* imageClass:{string} ÆÙ²¼Á÷itemµÄÍ¼Æ¬µÄclass£¬ÓÃÓÚÓÐ´óÍ¼µÄitem²Ù×÷imgÔªËØ
+* load:{function} ÐèÒª´«Èë2¸ö²ÎÊý£¬
+dataList{array} Êý¾Ý¼¯ºÏ
+isLastTime{boolean} ÎªtrueÊ±±íÊ¾×îºóÒ»´ÎäÖÈ¾Êý¾Ý,ÓÃÓÚ´¥·¢renderCompleteÊÂ¼þµÄ±ê¼Ç
+* callback:{object}
+* Ö§³ÖµÄ³ÉÔ±Îª£º
+{
+ready: {function} ×é¼þµÄ»ù±¾ÅäÖÃÍê³Éºó´¥·¢£¬»Øµ÷º¯ÊýÀï½¨Òéµ÷ÓÃ×é¼þµÄloadº¯Êý¿ªÊ¼äÖÈ¾Êý¾Ý
+insertBefore£º{function} Ã¿¸öitem²åÈëÖ®Ç°´¥·¢£¬thisÎª¸Ãitem£¬Î¨Ò»µÄ²ÎÊýÊÇ¸ÃitemµÄ´óÍ¼ÐÅÏ¢£¬ÈçÏÂ
+*@example:
+*{
+* isHasImg: false/true,ÓÐÎÞÍ¼Æ¬£¬ÒÔ¼°³ß´ç£¬ÎÞÍ¼Æ¬³ß´çÎª0
+* height: 100,
+* width : 200
+*};
+insertAfter:{function} Ã¿¸öitem²åÈëÖ®ºó´¥·¢£¬this,»¹ÓÐ´«Èë²ÎÊýinsetAfter
+itemComplete:{function} Ã¿¸öitemÏÔÊ¾ÍêÕû£¨½¥ÒþÏÔÊ¾£©ºó´¥·¢£¬thisÎª¸Ãitem
+}
 
-* ï¿½Â¼ï¿½Ö§ï¿½Ö£ï¿½
-* scrollToEnd: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½È¾ï¿½Âµï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½readyï¿½ï¿½ï¿½Æ£ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½loadï¿½ï¿½È¾ï¿½ï¿½Ý£ï¿½
-* renderComplete: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¾ï¿½ï¿½É£ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½isLastTimeÎªï¿½ï¿½Ç£ï¿½ï¿½ó´¥·ï¿½
+* ÊÂ¼þÖ§³Ö£º
+* scrollToEnd: ä¯ÀÀµ½µ×²¿´¥·¢£¬ÓÃÓÚ´¥·¢µÄÊ±ºòäÖÈ¾ÐÂµÄÊý¾Ý£¨ÓëreadyÀàËÆ£¬ÔÚ¼àÌýº¯ÊýÖÐ£¬µ÷ÓÃloadäÖÈ¾Êý¾Ý£©
+* renderComplete: ËùÓÐÐÅÏ¢äÖÈ¾Íê³É£¨ÒÔÊµÀýµÄÊôÐÔisLastTimeÎª±ê¼Ç£©ºó´¥·¢
 */
 KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
     var D = S.DOM,
@@ -53,12 +53,12 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             self.container = D.get(container);
         }
         if(!container && config.brooks) {
-            console.info('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½id.');
+            console.info('ÇëÅäÖÃÕýÈ·µÄid.');
             return;
         }
         self._init(config || {});
     }
-    //ï¿½Ì³ï¿½baseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+    //¼Ì³Ðbase¿ÉÒÔÉèÖÃ×Ô¶¨ÒåÊÂ¼þ
     S.extend(Waterfall, S.Base);
 
     S.augment(Waterfall, {
@@ -67,19 +67,19 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             
             self.isEnd = false;
             self._bindParam(config);
-            //ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½self.imgReady;
+            //³õÊ¼»¯Ò»¸ö¹¤¾ß¸øself.imgReady;
             self.imgReady = self._checkImgSizeInit();
             self._bindEvent();
         },
-        //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
+        //ÅäÖÃ²ÎÊý
         _bindParam: function(o) {
             var self = this,
                 brooks;
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ²ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
-            //Ö¸ï¿½ï¿½ï¿½ï¿½Ïªï¿½ï¿½  ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½Ïªï¿½ï¿½ï¿½ï¿½3Òªï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïªï¿½ï¿½ï¿½ï¿½È£ï¿½Ïªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½
+            //±ØÐëÓÐµÄ²ÎÊý£¬Ã»ÓÐÅäÖÃµ½ÐèÒª±¨´í
+            //Ö¸¶¨µÄÏªÁ÷ ÇÒ ¹¹½¨ÏªÁ÷µÄ3ÒªËØ£¨ÈÝÆ÷£¬ÏªÁ÷¿í¶È£¬ÏªÁ÷ÁÐÊý£©¶¼Ã»ÓÐ
             if(!o.template || (!o.brooks && (!o.container || !o.colCount || !o.colWidth))) {
-                console.info('brooksï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½container/colCount/colWidthï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½');
+                console.info('brooks²»´æÔÚ»òcontainer/colCount/colWidth²»´æÔÚ£¡');
                 return;
             }
             
@@ -99,11 +99,11 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 colWidth: false,
                 imageClass: false,
                 template: false,
-                index: 0,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
+                index: 0,//´¥·¢äÖÈ¾´ÎÊý
                 callback: false
             }, setParam);
             
-            // ï¿½ï¿½È¡Ïµï¿½ÐµÄ»ï¿½ß¶ï¿½
+            // »ñÈ¡ÏµÁÐµÄ»ù±¾¸ß¶È
             function getBasicHeight() {
                 var brooks = self.brooks,
                     len = brooks.length,
@@ -117,15 +117,15 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             self.basicHeight = getBasicHeight();
         },
         /**
-         * ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ß´ï¿½
-         * ï¿½ï¿½ï¿½ï¿½Ñ·ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½Öµï¿½ï¿½self.imgReady 
-         */
+        * ³õÊ¼»¯Ò»¸öº¯Êý£¬ÓÃÓÚ¼ÆËãÍ¼Æ¬³ß´ç
+        * ÕâÀï°Ñ·µ»ØµÄ¶ÔÏó¸³Öµ¸øself.imgReady
+        */
         _checkImgSizeInit: function() {
             var self = this,
-                list = [], 
+                list = [],
                 intervalId = null,
 
-                // ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¶ï¿½ï¿½ï¿½
+                // ÓÃÀ´Ö´ÐÐ¶ÓÁÐ
                 tick = function () {
                     var i = 0;
                     for (; i < list.length; i++) {
@@ -134,23 +134,23 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     !list.length && stop();
                 },
             
-                // Í£Ö¹ï¿½ï¿½ï¿½Ð¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // Í£Ö¹ËùÓÐ¶¨Ê±Æ÷¶ÓÁÐ
                 stop = function () {
                     clearInterval(intervalId);
                     intervalId = null;
                 };
             
             return function (dom, url, ready, load, error) {
-                var onready, 
-                    width, 
-                    height, 
-                    newWidth, 
+                var onready,
+                    width,
+                    height,
+                    newWidth,
                     newHeight,
                     img = new Image();
                     
                 img.relayDom = dom;
                 img.src = url;
-                // ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // Èç¹ûÍ¼Æ¬±»»º´æ£¬ÔòÖ±½Ó·µ»Ø»º´æÊý¾Ý
                 if(img.complete) {
                     ready.call(img);
                     load && load.call(img);
@@ -158,14 +158,14 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 }
                 width = img.width;
                 height = img.height;
-                // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+                // ¼ÓÔØ´íÎóºóµÄÊÂ¼þ
                 E.on(img, 'error', function() {
                     error && error.call(img);
                     onready.end = true;
                     img = img.onload = img.onerror = null;
                 });
             
-                // Í¼Æ¬ï¿½ß´ï¿½ï¿½ï¿½ï¿½
+                // Í¼Æ¬³ß´ç¾ÍÐ÷
                 onready = function() {
                     newWidth = img.width;
                     newHeight = img.height;
@@ -176,26 +176,26 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 }
                 onready();
             
-                // ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Â¼ï¿½
+                // ÍêÈ«¼ÓÔØÍê±ÏµÄÊÂ¼þ
                 E.on(img, 'load', function() {
-                    // onloadï¿½Ú¶ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½î·¶Î§ï¿½Ú¿ï¿½ï¿½Ü±ï¿½onreadyï¿½ï¿½
-                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½é²¢ï¿½ï¿½Ö¤onreadyï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+                    // onloadÔÚ¶¨Ê±Æ÷Ê±¼ä²î·¶Î§ÄÚ¿ÉÄÜ±Èonready¿ì
+                    // ÕâÀï½øÐÐ¼ì²é²¢±£Ö¤onreadyÓÅÏÈÖ´ÐÐ
                     !onready.end && onready();
                     load && load.call(img);
-                    // IE gifï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½Ö´ï¿½ï¿½onloadï¿½ï¿½ï¿½Ã¿ï¿½onloadï¿½ï¿½ï¿½ï¿½
+                    // IE gif¶¯»­»áÑ­»·Ö´ÐÐonload£¬ÖÃ¿Õonload¼´¿É
                     img = img.onload = img.onerror = null;
                 });
             
-                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+                // ¼ÓÈë¶ÓÁÐÖÐ¶¨ÆÚÖ´ÐÐ
                 if (!onready.end) {
                     list.push(onready);
-                    // ï¿½ï¿½ï¿½Ûºï¿½Ê±Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    // ÎÞÂÛºÎÊ±Ö»ÔÊÐí³öÏÖÒ»¸ö¶¨Ê±Æ÷£¬¼õÉÙä¯ÀÀÆ÷ÐÔÄÜËðºÄ
                     if (intervalId === null) intervalId = setInterval(tick, 40);
                 }
             };
         },
 
-        //ï¿½ï¿½È¾ï¿½ï¿½ï¿½Ð½á¹¹
+        //äÖÈ¾¼¸ÁÐ½á¹¹
         _bindStructure: function() {
             var self = this,
                 structure = '',
@@ -206,7 +206,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             
             for(var i = 0; i < self.colCount; i++){
                 if(i == self.colCount - 1){
-                    structure += '<div class="'+ self.brookName +'" style="float:left;width:'+ self.colWidth +'px;"></div>';
+                    structure += '<div class="'+ self.brookName +'" style="float:left;width:'+ self.colWidth +'px;"></div>'
                 }else{
                     structure += '<div class="'+ self.brookName +'" style="float:left;margin-right:'+ marginValue +'px;width:'+ self.colWidth +'px;"></div>';
                 }
@@ -214,40 +214,40 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             D.append(D.create(structure), self.container);
             return D.query('.'+self.brookName, self.container);
         },
-        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ïµ½ï¿½×²ï¿½ï¿½Ù½ï¿½ï¿½
+        //ÅÐ¶ÏÊÇ·ñ¹ö¶¯Ìõ´ïµ½µ×²¿ÁÙ½çµã
         isGetBottom: function() {
-            //È¡ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½    
-            function getScrollTop() {     
-                var scrollTop = 0;     
-                if(document.documentElement && document.documentElement.scrollTop) {     
-                    scrollTop = document.documentElement.scrollTop;     
-                }else if(document.body) {  
-                    scrollTop = document.body.scrollTop;     
-                }     
-                return scrollTop;     
-            }     
-            //È¡ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ó·ï¿½Î§ï¿½Ä¸ß¶ï¿½    
-            function getClientHeight() {     
-                var clientHeight = 0;     
-                if(document.body.clientHeight && document.documentElement.clientHeight){     
-                    var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;             
-                }else{     
-                    var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;         
-                }     
-                return clientHeight;     
-            }     
-            //È¡ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê¸ß¶ï¿½    
-            function getScrollHeight() { 
-                return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);     
+            //È¡´°¿Ú¹ö¶¯Ìõ¸ß¶È
+            function getScrollTop() {
+                var scrollTop = 0;
+                if(document.documentElement && document.documentElement.scrollTop) {
+                    scrollTop = document.documentElement.scrollTop;
+                }else if(document.body) {
+                    scrollTop = document.body.scrollTop;
+                }
+                return scrollTop;
+            }
+            //È¡´°¿Ú¿ÉÊÓ·¶Î§µÄ¸ß¶È
+            function getClientHeight() {
+                var clientHeight = 0;
+                if(document.body.clientHeight && document.documentElement.clientHeight){
+                    var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;
+                }else{
+                    var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight)? document.body.clientHeight : document.documentElement.clientHeight;
+                }
+                return clientHeight;
+            }
+            //È¡ÎÄµµÄÚÈÝÊµ¼Ê¸ß¶È
+            function getScrollHeight() {
+                return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
             }
             if(getScrollTop() + getClientHeight() >= getScrollHeight() - 400) {
                 return true;
-            }     
+            }
             return false;
         },
         /**
-         * ï¿½ï¿½È¡ï¿½ß¶ï¿½ï¿½ï¿½Ð¡Ïªï¿½ï¿½
-         */
+        * »ñÈ¡¸ß¶È×îÐ¡ÏªÁ÷
+        */
         getShortBrook: function() {
             var self = this,
                 sBrook,
@@ -272,8 +272,8 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             return sBrook;
         },
         /**
-         * ï¿½ï¿½ï¿½ï¿½Ýºï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Æ´×°
-         */
+        * °ÑÊý¾ÝºÍÄ£°å½øÐÐÆ´×°
+        */
         _createDom: function(dataList) {
             var self = this,
                 items = [],
@@ -285,15 +285,15 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
             return items;
         },
         /**
-         * /ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
-         * Êµï¿½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ÉµÄ»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½? 
-         * @param dataList {array} ï¿½ï¿½Ý¼ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½Úºï¿½Ä£ï¿½ï¿½Æ´×°ï¿½É´ï¿½ï¿½ï¿½ï¿½
-         * @param isLastTime {boolean} ï¿½ï¿½Ö¾ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½dataList.lengthï¿½ï¿½Îª0ï¿½ï¿½Ê±ï¿½ï¿½Îªtrueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½renderCompleteï¿½Â¼ï¿½
-         */
+        * /°ÑÒ»´ÎÇëÇóÀ´µÄ¶àÏîÒÀ´ÎäÖÈ¾
+        * ÊµÏÖÆÙ²¼Á÷äÖÈ¾Íê³ÉµÄ»Øµ÷º¯ÊýµÄÔ­Àí£º
+        * @param dataList {array} Êý¾Ý¼¯ºÏ£¬ÓÃÓÚºÍÄ£°åÆ´×°³É´úÂë¿é
+        * @param isLastTime {boolean} ±êÖ¾ÊÇ²»ÊÇ×îºóÒ»´ÎäÖÈ¾£¬ÐèÒªÔÚdataList.length²»Îª0µÄÊ±ºòÎªtrue£¬·ñÔòÎÞ·¨´¥·¢renderCompleteÊÂ¼þ
+        */
         load: function(dataList, isLastTime) {
             var self = this;
             
-            //ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
+            //ÒÑ¾­½áÊøµÄ»°Ö±½Ó·µ»Ø
             if(self.isEnd) {
                 console.info('do not execute function load after render is completed!');
                 return;
@@ -303,18 +303,18 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 if(self.isRenderComplete) {
                     return;
                 }
-                //ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Õµï¿½ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                //´«ÈëÁË¿ÕµÄÐÅÏ¢,ÒÔÆÙ²¼Á÷½áÊø´¦Àí
                 self.isRenderComplete = true;
                 self.end();
-                //ï¿½Ñ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½isRenderCompleteï¿½ï¿½Îªtrueï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô·Åµï¿½ï¿½ï¿½ï¿½
+                //°Ñ´¥·¢´úÂëÐ´×îºó£¬ÊÇÒòÎª¿ÉÄÜ¼àÌýº¯ÊýÀïÓÐ×èÈû£¬µ¼ÖÂisRenderCompleteÖÃÎªtrue²»¼°Ê±£¬ËùÒÔ·Åµ½×îºó
                 self.fire('renderComplete');
                 return;
             }
             /**
-             * ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(dataList.length > 0 && isLastTime)ï¿½ï¿½,isRenderCompleteï¿½ï¿½Îªï¿½ï¿½ 
-             * ï¿½ï¿½ï¿½Â¸ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½if(self.isRenderComplete)return;ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½loadÖ´ï¿½Ðµï¿½Ê±ï¿½ï¿½ï¿½Ãµï¿½
-             * Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½renderCompleteï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½fireÖ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´Îµï¿½loadï¿½Ö¿ï¿½Ê¼Ö´ï¿½Ð£ï¿½ï¿½ï¿½ÒªÒ»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä±ï¿½Ö¾
-             */
+            * Èç¹ûÓÐ¹ýÕý³£µÄ´¥·¢äÖÈ¾Íê³ÉµÄÌõ¼þ£¨(dataList.length > 0 && isLastTime)£©,isRenderCompleteÖÃÎªÕæ
+            * ÈçÏÂ¸³Öµ±ØÐëÔÚif(self.isRenderComplete)return;µÄÏÂ·½£¬ÊÇÁô¸øÏÂ´ÎloadÖ´ÐÐµÄÊ±ºòÓÃµÄ
+            * Ð´ÔÚÕâ¸öÎ»ÖÃ¶ø²»ÊÇÔÚrenderComplete´¥·¢Ö®ºóµÄÔ­ÒòÊÇ£¬Èç¹ûÏÂ·½´¥·¢fireÖ®ºóÀ´ÉèÖÃ£¬¿ÉÄÜÏÂ´ÎµÄloadÓÖ¿ªÊ¼Ö´ÐÐ£¬ÐèÒªÒ»¸ö¼°Ê±µÄ±êÖ¾
+            */
             self.isRenderComplete = (dataList.length > 0 && isLastTime)? true : false;
             
             var items = self._createDom(dataList),
@@ -332,8 +332,8 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     function delay(items, num) {
                         return function() {
                             var image = D.get('.' + self.imageClass, items[num]);
-                            D.css(items[num], 'opacity', '0');  
-                            if (image) {//ï¿½ï¿½Í¼Æ¬
+                            D.css(items[num], 'opacity', '0');
+                            if (image) {//ÓÐÍ¼Æ¬
                                 self.imgReady(items[num], D.attr(image, 'src'), function() {
                                     renderStart({
                                         img: this,
@@ -342,7 +342,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                                 });
                                 return;
                             }
-                            //ï¿½ï¿½Í¼Æ¬
+                            //ÎÞÍ¼Æ¬
                             renderStart({
                                 img: false,
                                 item: items[num]
@@ -351,7 +351,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     }
                     timer = setTimeout(delay(items, num));
                 }
-                //objï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ß´ï¿½ï¿½ï¿½Éµï¿½imgÊµï¿½ï¿½
+                //objÊÇÄÇ¸öÓÃÓÚ¼ÆËãÍ¼Æ¬³ß´çÉú³ÉµÄimgÊµÀý
                 function renderStart(obj, num) {
                     var con = self.getShortBrook();
                     
@@ -373,10 +373,10 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     } else {
                         console.error('renderStart error!');
                     }
-                    //ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Øµï¿½
+                    //²åÈëÇ°»Øµ÷
                     if(self.callback.insertBefore) self.callback.insertBefore.call(item, imgData);
                     D.append(items[num], con);
-                    //ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
+                    //²åÈëºó»Øµ÷
                     if(self.insertAfter) self.insertAfter.call(item, imgData);
                     if(num + 1 === sumNum && isLastTime) {
                         self.fire('renderComplete');
@@ -390,7 +390,7 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                     num++;
                     if (num < maxNum) {
                         showItem(items, num);
-                        //ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ë±¨ï¿½ï¿½
+                        //ÖØ¸´²åÈë±¨´í
                         if(items[num-1] === items[num]){
                             console.error('item repeat!');
                         }
@@ -399,21 +399,21 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
                 }
             }
         },
-        //Í£Ö¹ï¿½ì²½ï¿½ï¿½ï¿½ï¿½
+        //Í£Ö¹Òì²½ÇëÇó
         end: function() {
             var self = this;
             
             self.isEnd = true;
             E.remove(window, 'scroll', self.scrollFn);
         },
-        //ï¿½ï¿½ï¿½Â¼ï¿½
+        //°ó¶¨ÊÂ¼þ
         _bindEvent: function() {
             var self = this;
             
             self.scrollFn = function() {
-            	if (!self.isGetBottom()) {
-            		return;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ïµ½Ò³Î²ï¿½ò·µ»ï¿½	
-            	}
+             if (!self.isGetBottom()) {
+             return;//¹ö¶¯ÌõÎ´´ïµ½Ò³Î²Ôò·µ»Ø
+             }
                 self.fire('scrollToEnd');
             }
             E.on(window, 'scroll', self.scrollFn);
@@ -425,4 +425,3 @@ KISSY.add('widgets/Waterfall/Waterfall', function(S, Template) {
 },{
     requires: ['template']
 });
-       
